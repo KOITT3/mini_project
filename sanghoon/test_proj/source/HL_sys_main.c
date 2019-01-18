@@ -50,7 +50,6 @@
 #include "HL_sys_common.h"
 
 /* USER CODE BEGIN (1) */
-#include "HL_gio.h"
 /* USER CODE END */
 
 /** @fn void main(void)
@@ -67,8 +66,6 @@
 int main(void)
 {
 /* USER CODE BEGIN (3) */
-    gioInit();
-    gioSetBit(gioPORTA, 4, 1);
 /* USER CODE END */
 
     return 0;

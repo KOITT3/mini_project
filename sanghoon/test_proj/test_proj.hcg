@@ -3,7 +3,7 @@
   <DEVICE>
     <family>TMS570LC43x</family>
     <device>TMS570LC4357ZWT</device>
-    <dilfile>git_test.dil</dilfile>
+    <dilfile>test_proj.dil</dilfile>
     <tools>ti</tools>
   </DEVICE>
   <VERSION>

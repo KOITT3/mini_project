@@ -8,7 +8,6 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
-"./test.obj" \
 "./source/HL_epc.obj" \
 "./source/HL_errata.obj" \
 "./source/HL_esm.obj" \
@@ -39,9 +38,7 @@ RMDIR := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
--include subdir_vars.mk
 -include source/subdir_vars.mk
--include subdir_rules.mk
 -include source/subdir_rules.mk
 -include objects.mk
 
@@ -139,42 +136,42 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-git_test.out \
+test_proj.out \
 
 EXE_OUTPUTS__QUOTED += \
-"git_test.out" \
+"test_proj.out" \
 
 BIN_OUTPUTS += \
-git_test.hex \
+test_proj.hex \
 
 BIN_OUTPUTS__QUOTED += \
-"git_test.hex" \
+"test_proj.hex" \
 
 
 # All Target
 all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
-	@$(MAKE) --no-print-directory -Onone "git_test.out"
+	@$(MAKE) --no-print-directory -Onone "test_proj.out"
 
 # Tool invocations
-git_test.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+test_proj.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: ARM Linker'
-	"/home/koitt/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/bin/armcl" -mv7R5 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"git_test.map" --heap_size=0x800 --stack_size=0x800 -i"/home/koitt/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/lib" -i"/home/koitt/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="git_test_linkInfo.xml" --rom_model --be32 -o "git_test.out" $(ORDERED_OBJS)
+	"/home/koitt/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/bin/armcl" -mv7R5 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"test_proj.map" --heap_size=0x800 --stack_size=0x800 -i"/home/koitt/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/lib" -i"/home/koitt/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="test_proj_linkInfo.xml" --rom_model --be32 -o "test_proj.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
-git_test.hex: $(EXE_OUTPUTS)
+test_proj.hex: $(EXE_OUTPUTS)
 	@echo 'Building files: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo 'Invoking: ARM Hex Utility'
-	"/home/koitt/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/bin/armhex"  -o "git_test.hex" $(EXE_OUTPUTS__QUOTED)
+	"/home/koitt/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/bin/armhex"  -o "test_proj.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "test.obj" "source/HL_epc.obj" "source/HL_errata.obj" "source/HL_esm.obj" "source/HL_gio.obj" "source/HL_nmpu.obj" "source/HL_notification.obj" "source/HL_pinmux.obj" "source/HL_sys_core.obj" "source/HL_sys_dma.obj" "source/HL_sys_intvecs.obj" "source/HL_sys_main.obj" "source/HL_sys_mpu.obj" "source/HL_sys_pcr.obj" "source/HL_sys_phantom.obj" "source/HL_sys_pmm.obj" "source/HL_sys_pmu.obj" "source/HL_sys_startup.obj" "source/HL_sys_vim.obj" "source/HL_system.obj" 
-	-$(RM) "test.d" "source/HL_epc.d" "source/HL_errata.d" "source/HL_esm.d" "source/HL_gio.d" "source/HL_nmpu.d" "source/HL_notification.d" "source/HL_pinmux.d" "source/HL_sys_dma.d" "source/HL_sys_main.d" "source/HL_sys_pcr.d" "source/HL_sys_phantom.d" "source/HL_sys_pmm.d" "source/HL_sys_startup.d" "source/HL_sys_vim.d" "source/HL_system.d" 
+	-$(RM) "source/HL_epc.obj" "source/HL_errata.obj" "source/HL_esm.obj" "source/HL_gio.obj" "source/HL_nmpu.obj" "source/HL_notification.obj" "source/HL_pinmux.obj" "source/HL_sys_core.obj" "source/HL_sys_dma.obj" "source/HL_sys_intvecs.obj" "source/HL_sys_main.obj" "source/HL_sys_mpu.obj" "source/HL_sys_pcr.obj" "source/HL_sys_phantom.obj" "source/HL_sys_pmm.obj" "source/HL_sys_pmu.obj" "source/HL_sys_startup.obj" "source/HL_sys_vim.obj" "source/HL_system.obj" 
+	-$(RM) "source/HL_epc.d" "source/HL_errata.d" "source/HL_esm.d" "source/HL_gio.d" "source/HL_nmpu.d" "source/HL_notification.d" "source/HL_pinmux.d" "source/HL_sys_dma.d" "source/HL_sys_main.d" "source/HL_sys_pcr.d" "source/HL_sys_phantom.d" "source/HL_sys_pmm.d" "source/HL_sys_startup.d" "source/HL_sys_vim.d" "source/HL_system.d" 
 	-$(RM) "source/HL_sys_core.d" "source/HL_sys_intvecs.d" "source/HL_sys_mpu.d" "source/HL_sys_pmu.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
