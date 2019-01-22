@@ -27,6 +27,7 @@ ORDERED_OBJS += \
 "./source/HL_sys_startup.obj" \
 "./source/HL_sys_vim.obj" \
 "./source/HL_system.obj" \
+"../source/HL_sys_link.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
 
@@ -135,34 +136,34 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-test_proj.out \
+test_190122.out \
 
 EXE_OUTPUTS__QUOTED += \
-"test_proj.out" \
+"test_190122.out" \
 
 BIN_OUTPUTS += \
-test_proj.hex \
+test_190122.hex \
 
 BIN_OUTPUTS__QUOTED += \
-"test_proj.hex" \
+"test_190122.hex" \
 
 
 # All Target
-all: $(OBJS) $(GEN_CMDS)
-	@$(MAKE) --no-print-directory -Onone "test_proj.out"
+all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+	@$(MAKE) --no-print-directory -Onone "test_190122.out"
 
 # Tool invocations
-test_proj.out: $(OBJS) $(GEN_CMDS)
+test_190122.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: ARM Linker'
-	"/home/koitt/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/bin/armcl" -mv7R5 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"test_proj.map" --heap_size=0x800 --stack_size=0x800 -i"/home/koitt/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/lib" -i"/home/koitt/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="test_proj_linkInfo.xml" --rom_model --be32 -o "test_proj.out" $(ORDERED_OBJS)
+	"/home/koitt/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/bin/armcl" -mv7R5 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"test_190122.map" --heap_size=0x800 --stack_size=0x800 -i"/home/koitt/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/lib" -i"/home/koitt/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="test_190122_linkInfo.xml" --rom_model --be32 -o "test_190122.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
-test_proj.hex: $(EXE_OUTPUTS)
+test_190122.hex: $(EXE_OUTPUTS)
 	@echo 'Building files: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo 'Invoking: ARM Hex Utility'
-	"/home/koitt/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/bin/armhex"  -o "test_proj.hex" $(EXE_OUTPUTS__QUOTED)
+	"/home/koitt/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/bin/armhex"  -o "test_190122.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo ' '
 
