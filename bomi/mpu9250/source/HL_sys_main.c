@@ -188,7 +188,7 @@ int main(void)
                 sciDisplayText(sciREG1, (uint8 *)txt_buf, (uint32) buf_len);
                 wait(1000);
 
-                sprintf(txt_buf,"an_xy = %3.2lf\t an_yz = %3.2lf\t an_xy = %3.2lf\n\r\0",
+                sprintf(txt_buf,"an_xy = %3.2lf\t an_yz = %3.2lf\t an_xz = %3.2lf\n\r\0",
                         an_xy, an_yz, an_xz);
                 buf_len = strlen(txt_buf);
                 sciDisplayText(sciREG1, (uint8 *)txt_buf, (uint32) buf_len);
@@ -197,8 +197,13 @@ int main(void)
                 cnt--;
             }
             else
-                wait(30000);
+            {
+                sprintf(txt_buf,"cnt = %d\n\r\0", cnt);
+                buf_len = strlen(txt_buf);
+                sciDisplayText(sciREG1, (uint8 *)txt_buf, (uint32) buf_len);
 
+                wait(2000);
+            }
 //            sprintf(txt_buf, "MAG_x = %f \t MAG_y = %f \t MAG_z = %f \n\r\0",
 //                    mx  , my  , mz );
 //
