@@ -85,12 +85,14 @@ void wait(int delay);
 void motor_dc(void *pbParameters);
 void sci_display(sciBASE_t* sci,uint8* buf, int len);
 void ecapNotification(ecapBASE_t *ecap, uint16 flag);
-void motor_dc_arduino();
+void motor_dc_arduino(void);
+void motor_stop(void);
 
 
 
 int throttle;
 int rudder;
+int lh_switch;
 /* USER CODE END */
 
 int main(void)
@@ -103,13 +105,27 @@ int main(void)
     ecapInit();
 
     _enable_interrupt_();
-   // etpwmREG1->CMPA=1100;
+    etpwmREG1->CMPA=20000;
+    wait(3000);
+    etpwmREG1->CMPA=0;
+    etpwmREG1->CMPB=20000;
+    wait(3000);
+
+    etpwmREG1->CMPB=0;
+    etpwmREG2->CMPA=20000;
+    wait(3000);
+    etpwmREG2->CMPB=20000;
+    etpwmREG2->CMPA=0;
+    wait(3000);
+    etpwmREG2->CMPB=0;
 
     ecapStartCounter(ecapREG1);
     ecapStartCounter(ecapREG2);
+    ecapStartCounter(ecapREG3);
 
     ecapEnableCapture(ecapREG1);
     ecapEnableCapture(ecapREG2);
+    ecapEnableCapture(ecapREG3);
 
     vSemaphoreCreateBinary(mutex);
 
@@ -117,6 +133,9 @@ int main(void)
         for(;;)
             ;
     }
+
+    //for(;;)
+      //  ;
 
     vTaskStartScheduler();
 
@@ -169,7 +188,7 @@ void motor_servo(void *pbParameters){
 
 
 void ecapNotification(ecapBASE_t *ecap, uint16 flag){
-    uint32 cap[4];
+    uint32 cap[6];
     char buf[128];
     int buf_len;
 
@@ -179,44 +198,107 @@ void ecapNotification(ecapBASE_t *ecap, uint16 flag){
     cap[2]=ecapGetCAP1(ecapREG2);
     cap[3]=ecapGetCAP2(ecapREG2);
 
+    cap[4]=ecapGetCAP1(ecapREG3);
+    cap[5]=ecapGetCAP2(ecapREG3);
+
     throttle=(cap[1]-cap[0])/VCLK3_FREQ;
     rudder=(cap[3]-cap[2])/VCLK3_FREQ;
+    lh_switch=(cap[5]-cap[4])/VCLK3_FREQ;
 
-    sprintf(buf,"cmpA:%d\tcmpB:%d\t throttle:%d\t rudder:%d\n\r\0",etpwmREG1->CMPA,etpwmREG1->CMPB,throttle,rudder);
+    if(lh_switch>=1450&&lh_switch<=1550){//송수신기가 꺼져있을때 처리
+        return;
+    }
+
+    //sprintf(buf,"cmpA:%d\tcmpB:%d\t throttle:%d\t rudder:%d ch7:%d\n\r\0",etpwmREG1->CMPA,etpwmREG1->CMPB,throttle,rudder,lh_switch);
+    sprintf(buf,"cmp1A:%d\t cmp1B:%d\t cmp2A:%d\t cmp2B:%d\n\r\0",etpwmREG1->CMPA,etpwmREG1->CMPB,etpwmREG2->CMPA,etpwmREG2->CMPB);
+   // sprintf(buf,"switch:%d\n\r\0",lh_switch);
     buf_len=strlen(buf);
     sci_display(sciREG1,(uint8*)buf,buf_len);
 
-    motor_dc_arduino();
+    wait(30000);
 
+    if(lh_switch>1900){//switch가 하이(스위치를 내린 경우) 모터 동작을 꺼버리고 함수를 나감
+        motor_stop();
+        return;
+    }
+
+    motor_dc_arduino();
 
     wait(30000);
 }
 
-void motor_dc_arduino(){
-    int tmp=throttle;
+void motor_stop(void){
+    etpwmREG1->CMPA=0;
+    etpwmREG1->CMPB=0;
+    etpwmREG2->CMPA=0;
+    etpwmREG2->CMPB=0;
+}
 
-    tmp-=1000;
+void motor_dc_arduino(void){
+    int vel=throttle; //etpwmREG1:right, etpwmREG2:left
+    int dir_left=0;
+    int dir_right=0;
+    int tmp;
 
-    if(tmp<0){
-        tmp=0;
+    vel-=1000;
+
+    if(vel<0){
+        vel=0;
     }
 
-    tmp*=40;
+    vel*=40;//수치 보정(0~1000을 0~40000으로)
 
-    if(tmp>20000){
-        tmp=tmp-20000;
-         if(tmp<2500){
-               tmp=0;
-           }
-           etpwmREG1->CMPA=tmp;
-           etpwmREG1->CMPB=0;
+    if(rudder>1600){
+        dir_right=(rudder-1500)*20;
+    }else if(rudder<1400){
+        dir_left=(1500-rudder)*20;
+    }
+
+    if(vel>20000){
+        vel=vel-20000;
+        if(vel<2500){
+              vel=0;
+        }
+
+        tmp=vel-dir_left;
+
+        if(tmp<0){
+            tmp=0;
+        }
+
+
+        etpwmREG1->CMPA=tmp;
+        etpwmREG1->CMPB=0;
+
+        tmp=vel-dir_right;
+        if(tmp<0){
+          tmp=0;
+        }
+
+        etpwmREG2->CMPA=tmp;
+        etpwmREG2->CMPB=0;
+
        }else{
-           tmp=20000-tmp;
-           if(tmp<2500){
+           vel=20000-vel;
+           if(vel<2500){
+               vel=0;
+           }
+
+           tmp=vel-dir_left;
+           if(tmp<0){
                tmp=0;
            }
+
            etpwmREG1->CMPA=0;
            etpwmREG1->CMPB=tmp;
+
+           tmp=vel-dir_right;
+           if(tmp<0){
+               tmp=0;
+           }
+
+           etpwmREG2->CMPA=0;
+           etpwmREG2->CMPB=tmp;
        }
 }
 

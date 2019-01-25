@@ -168,6 +168,101 @@ void etpwmInit(void)
     etpwmREG1->ETPS |= ((uint16)((uint16)1U << 8U)
                       | (uint16)((uint16)1U << 12U));
 
+    /** @b initialize @b ETPWM2 */
+
+    /** - Sets high speed time-base clock prescale bits */
+    etpwmREG2->TBCTL = (uint16)5U << 7U;
+
+    /** - Sets time-base clock prescale bits */
+    etpwmREG2->TBCTL |= (uint16)((uint16)0U << 10U);
+
+    /** - Sets time period or frequency for ETPWM block both PWMA and PWMB*/
+    etpwmREG2->TBPRD = 19999U;
+
+    /** - Setup the duty cycle for PWMA */
+    etpwmREG2->CMPA = 0U;
+
+    /** - Setup the duty cycle for PWMB */
+    etpwmREG2->CMPB = 0U;
+
+    /** - Force EPWMxA output high when counter reaches zero and low when counter reaches Compare A value */
+    etpwmREG2->AQCTLA = ((uint16)((uint16)ActionQual_Set   << 0U)
+                       | (uint16)((uint16)ActionQual_Clear << 4U));
+
+    /** - Force EPWMxB output high when counter reaches zero and low when counter reaches Compare B value */
+    etpwmREG2->AQCTLB = ((uint16)((uint16)ActionQual_Set   << 0U)
+                       | (uint16)((uint16)ActionQual_Clear << 8U));
+
+    /** - Mode setting for Dead Band Module
+    *     -Select the input mode for Dead Band Module
+    *     -Select the output mode for Dead Band Module
+    *     -Select Polarity of the output PWMs
+    */
+    etpwmREG2->DBCTL = ((uint16)((uint16)1U << 5U)    /* Source for Falling edge delay(0-PWMA, 1-PWMB) */
+                      | (uint16)((uint16)0U << 4U) /* Source for Rising edge delay(0-PWMA, 1-PWMB)  */
+                      | (uint16)((uint16)0U << 3U)  /* Enable/Disable EPWMxB invert       */
+                      | (uint16)((uint16)0U << 2U)  /* Enable/Disable EPWMxA invert       */
+                      | (uint16)((uint16)0U << 1U) /* Enable/Disable Rising Edge Delay   */
+                      | (uint16)((uint16)0U << 0U));   /* Enable/Disable Falling Edge Delay  */
+
+    /** - Set the rising edge delay  */
+    etpwmREG2->DBRED = 1U;
+
+    /** - Set the falling edge delay  */
+    etpwmREG2->DBFED = 1U;
+
+    /** - Enable the chopper module for ETPWMx
+    *     -Sets the One shot pulse width in a chopper modulated wave
+    *     -Sets the dutycycle for the subsequent pulse train
+    *     -Sets the period for the subsequent pulse train
+    */
+    etpwmREG2->PCCTL = ((uint16)((uint16)0U << 0U) /* Enable/Disable chopper module */
+                      | (uint16)((uint16)0U << 1U)    /* One-shot Pulse Width */
+                      | (uint16)((uint16)3U << 8U)  /* Chopping Clock Duty Cycle */
+                      | (uint16)((uint16)0U << 5U));  /* Chopping Clock Frequency */
+
+    /** - Set trip source enable */
+    etpwmREG2->TZSEL =  0x0000U    /** - Enable/Disable TZ1 as a one-shot trip source */
+                      | 0x0000U    /** - Enable/Disable TZ2 as a one-shot trip source */
+                      | 0x0000U    /** - Enable/Disable TZ3 as a one-shot trip source */
+                      | 0x0000U    /** - Enable/Disable TZ4 as a one-shot trip source */
+                      | 0x0000U    /** - Enable/Disable TZ5 as a one-shot trip source */
+                      | 0x0000U    /** - Enable/Disable TZ6 as a one-shot trip source */
+                      | 0x0000U    /** - Enable/Disable TZ1 as a CBC trip source      */
+                      | 0x0000U    /** - Enable/Disable TZ2 as a CBC trip source      */
+                      | 0x0000U    /** - Enable/Disable TZ3 as a CBC trip source      */
+                      | 0x0000U    /** - Enable/Disable TZ4 as a CBC trip source      */
+                      | 0x0000U    /** - Enable/Disable TZ5 as a CBC trip source      */
+                      | 0x0000U;   /** - Enable/Disable TZ6 as a CBC trip source      */
+
+    /** - Set interrupt enable */
+    etpwmREG2->TZEINT = 0x0000U    /** - Enable/Disable Digital Comparator Output A Event 1  */
+                      | 0x0000U    /** - Enable/Disable Digital Comparator Output A Event 2  */
+                      | 0x0000U    /** - Enable/Disable Digital Comparator Output A Event 1  */
+                      | 0x0000U    /** - Enable/Disable Digital Comparator Output A Event 2  */
+                      | 0x0000U    /** - Enable/Disable one-shot interrupt generation        */
+                      | 0x0000U;   /** - Enable/Disable cycle-by-cycle interrupt generation  */
+
+    /** - Sets up the event for interrupt */
+    etpwmREG2->ETSEL = (uint16)NO_EVENT;
+
+    if ((etpwmREG2->ETSEL & 0x0007U) != 0U)
+    {
+        etpwmREG2->ETSEL |= 0x0008U;
+    }
+    /** - Setup the frequency of the interrupt generation */
+    etpwmREG2->ETPS = 1U;
+
+    /** - Sets up the ADC SOC interrupt */
+    etpwmREG2->ETSEL |= ((uint16)(0x0000U)
+                       | (uint16)(0x0000U)
+                       | (uint16)((uint16)DCAEVT1 << 8U)
+                       | (uint16)((uint16)DCBEVT1 << 12U));
+
+    /** - Sets up the ADC SOC period */
+    etpwmREG2->ETPS |= ((uint16)((uint16)1U << 8U)
+                      | (uint16)((uint16)1U << 12U));
+
 
 
 /* USER CODE BEGIN (2) */
@@ -240,7 +335,7 @@ void etpwmStopTBCLK(void)
 *                     - HspClkDiv_by_14
 *
 *   This function sets the TimeBase Clock and the High Speed time base clock divider
-*   TBCLK = VCLK4 / (HSPCLKDIV ï¿½ CLKDIV)
+*   TBCLK = VCLK4 / (HSPCLKDIV × CLKDIV)
 */
 /* SourceId : ETPWM_SourceId_004 */
 /* DesignId : ETPWM_DesignId_004 */
