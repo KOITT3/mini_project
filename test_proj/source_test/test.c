@@ -2,6 +2,8 @@
 
 int main(void)
 {
-	printf("양성민");
+    
+    printf("이름");
+
 	return 0;
 }
