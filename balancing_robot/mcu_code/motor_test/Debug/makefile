@@ -2,7 +2,7 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-CG_TOOL_ROOT := /home/koitt/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS
+CG_TOOL_ROOT := /home/bomi/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS
 
 GEN_OPTS__FLAG := 
 GEN_CMDS__FLAG := 
@@ -160,14 +160,14 @@ all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 motor_test.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: ARM Linker'
-	"/home/koitt/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/bin/armcl" -mv7R5 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"motor_test.map" --heap_size=0x800 --stack_size=0x800 -i"/home/koitt/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/lib" -i"/home/koitt/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="motor_test_linkInfo.xml" --rom_model --be32 -o "motor_test.out" $(ORDERED_OBJS)
+	"/home/bomi/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/bin/armcl" -mv7R5 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"motor_test.map" --heap_size=0x800 --stack_size=0x800 -i"/home/bomi/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/lib" -i"/home/bomi/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="motor_test_linkInfo.xml" --rom_model --be32 -o "motor_test.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
 motor_test.hex: $(EXE_OUTPUTS)
 	@echo 'Building files: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo 'Invoking: ARM Hex Utility'
-	"/home/koitt/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/bin/armhex"  -o "motor_test.hex" $(EXE_OUTPUTS__QUOTED)
+	"/home/bomi/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.3.LTS/bin/armhex"  -o "motor_test.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo ' '
 

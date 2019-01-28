@@ -105,7 +105,7 @@ int main(void)
     char txt_buf[256] = {0};
     unsigned int buf_len;
     float gx[3] = {0}, gy[3] = {0}, gz[3] = {0};
-    float an_xy = 0, an_yz = 0, an_xz = 0;
+    int an_xy = 0, an_yz = 0, an_xz = 0;
 //    float ax0 = 0, ay0 = 0, az0 =0 ; //gravity 9.80665
 
     sciInit();
@@ -174,9 +174,9 @@ int main(void)
                 gy[2] = (float) gyroCount[1] * gRes - gy[0];
                 gz[2] = (float) gyroCount[2] * gRes - gz[0];
 
-                an_xy = an_xy + dt*gz[1] + 0.5*dt*dt*(gz[2] - gz[1]);
-                an_yz = an_yz + dt*gx[1] + 0.5*dt*dt*(gx[2] - gx[1]);
-                an_xz = an_xz - dt*gy[1] + 0.5*dt*dt*(gy[1] - gy[2]);
+                an_xy = an_xy + (int) (dt*gz[1] + 0.5*dt*dt*(gz[2] - gz[1]));
+                an_yz = an_yz + (int) (dt*gx[1] + 0.5*dt*dt*(gx[2] - gx[1]));
+                an_xz = an_xz - (int) (dt*gy[1] + 0.5*dt*dt*(gy[1] - gy[2]));
 
                 gx[1] = gx[2];
                 gy[1] = gy[2];
@@ -188,23 +188,27 @@ int main(void)
                 sciDisplayText(sciREG1, (uint8 *)txt_buf, (uint32) buf_len);
                 wait(1000);
 
-                sprintf(txt_buf,"an_xy = %3.2lf\t an_yz = %3.2lf\t an_xy = %3.2lf\n\r\0",
+                sprintf(txt_buf,"an_xy = %3d\t an_yz = %3d\t an_xy = %3d\n\r\0",
                         an_xy, an_yz, an_xz);
                 buf_len = strlen(txt_buf);
                 sciDisplayText(sciREG1, (uint8 *)txt_buf, (uint32) buf_len);
-                wait(1000);
+
+                cnt--;
             }
+
             else if(cnt == 0)
             {
-                sprintf(txt_buf, "cnt = %d\n\r\0", cnt);
-                buf_len = strlen(txt_buf);
-                sciDisplayText(sciREG1, (uint8 *)txt_buf, (uint32)buf_len);
+/*              sprintf(txt_buf,"cnt = %d\n\r\0", cnt);
+ *              buf_len = strlen(txt_buf);
+ *              sciDisplayText(sciREG1, (uint8 *)txt_buf,(uint32) buf_len);
+ */
+                wait(10000);
             }
+
             else
             {
                 disp_set("data missing\n\r\0");
             }
-
 
         }
 
