@@ -3,9 +3,6 @@
 ################################################################################
 
 # Add inputs and outputs from these tool invocations to the build variables 
-CMD_SRCS += \
-../source/HL_sys_link.cmd 
-
 ASM_SRCS += \
 ../source/HL_sys_core.asm \
 ../source/HL_sys_intvecs.asm \

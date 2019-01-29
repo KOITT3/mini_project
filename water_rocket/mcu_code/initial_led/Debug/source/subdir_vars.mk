@@ -3,9 +3,6 @@
 ################################################################################
 
 # Add inputs and outputs from these tool invocations to the build variables 
-CMD_SRCS += \
-../source/HL_sys_link.cmd 
-
 ASM_SRCS += \
 ../source/HL_sys_core.asm \
 ../source/HL_sys_intvecs.asm \
@@ -20,6 +17,7 @@ C_SRCS += \
 ../source/HL_nmpu.c \
 ../source/HL_notification.c \
 ../source/HL_pinmux.c \
+../source/HL_rti.c \
 ../source/HL_sys_dma.c \
 ../source/HL_sys_main.c \
 ../source/HL_sys_pcr.c \
@@ -37,6 +35,7 @@ C_DEPS += \
 ./source/HL_nmpu.d \
 ./source/HL_notification.d \
 ./source/HL_pinmux.d \
+./source/HL_rti.d \
 ./source/HL_sys_dma.d \
 ./source/HL_sys_main.d \
 ./source/HL_sys_pcr.d \
@@ -54,6 +53,7 @@ OBJS += \
 ./source/HL_nmpu.obj \
 ./source/HL_notification.obj \
 ./source/HL_pinmux.obj \
+./source/HL_rti.obj \
 ./source/HL_sys_core.obj \
 ./source/HL_sys_dma.obj \
 ./source/HL_sys_intvecs.obj \
@@ -81,6 +81,7 @@ OBJS__QUOTED += \
 "source/HL_nmpu.obj" \
 "source/HL_notification.obj" \
 "source/HL_pinmux.obj" \
+"source/HL_rti.obj" \
 "source/HL_sys_core.obj" \
 "source/HL_sys_dma.obj" \
 "source/HL_sys_intvecs.obj" \
@@ -102,6 +103,7 @@ C_DEPS__QUOTED += \
 "source/HL_nmpu.d" \
 "source/HL_notification.d" \
 "source/HL_pinmux.d" \
+"source/HL_rti.d" \
 "source/HL_sys_dma.d" \
 "source/HL_sys_main.d" \
 "source/HL_sys_pcr.d" \
@@ -125,6 +127,7 @@ C_SRCS__QUOTED += \
 "../source/HL_nmpu.c" \
 "../source/HL_notification.c" \
 "../source/HL_pinmux.c" \
+"../source/HL_rti.c" \
 "../source/HL_sys_dma.c" \
 "../source/HL_sys_main.c" \
 "../source/HL_sys_pcr.c" \

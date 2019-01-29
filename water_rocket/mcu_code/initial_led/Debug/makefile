@@ -15,6 +15,7 @@ ORDERED_OBJS += \
 "./source/HL_nmpu.obj" \
 "./source/HL_notification.obj" \
 "./source/HL_pinmux.obj" \
+"./source/HL_rti.obj" \
 "./source/HL_sys_core.obj" \
 "./source/HL_sys_dma.obj" \
 "./source/HL_sys_intvecs.obj" \
@@ -27,7 +28,6 @@ ORDERED_OBJS += \
 "./source/HL_sys_startup.obj" \
 "./source/HL_sys_vim.obj" \
 "./source/HL_system.obj" \
-"../source/HL_sys_link.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
 
@@ -149,11 +149,11 @@ BIN_OUTPUTS__QUOTED += \
 
 
 # All Target
-all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+all: $(OBJS) $(GEN_CMDS)
 	@$(MAKE) --no-print-directory -Onone "initial_led.out"
 
 # Tool invocations
-initial_led.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+initial_led.out: $(OBJS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: ARM Linker'
 	"/home/leedh/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS/bin/armcl" -mv7R5 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"initial_led.map" --heap_size=0x800 --stack_size=0x800 -i"/home/leedh/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS/lib" -i"/home/leedh/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="initial_led_linkInfo.xml" --rom_model --be32 -o "initial_led.out" $(ORDERED_OBJS)
@@ -170,8 +170,8 @@ initial_led.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "source/HL_epc.obj" "source/HL_errata.obj" "source/HL_esm.obj" "source/HL_etpwm.obj" "source/HL_nmpu.obj" "source/HL_notification.obj" "source/HL_pinmux.obj" "source/HL_sys_core.obj" "source/HL_sys_dma.obj" "source/HL_sys_intvecs.obj" "source/HL_sys_main.obj" "source/HL_sys_mpu.obj" "source/HL_sys_pcr.obj" "source/HL_sys_phantom.obj" "source/HL_sys_pmm.obj" "source/HL_sys_pmu.obj" "source/HL_sys_startup.obj" "source/HL_sys_vim.obj" "source/HL_system.obj" 
-	-$(RM) "source/HL_epc.d" "source/HL_errata.d" "source/HL_esm.d" "source/HL_etpwm.d" "source/HL_nmpu.d" "source/HL_notification.d" "source/HL_pinmux.d" "source/HL_sys_dma.d" "source/HL_sys_main.d" "source/HL_sys_pcr.d" "source/HL_sys_phantom.d" "source/HL_sys_pmm.d" "source/HL_sys_startup.d" "source/HL_sys_vim.d" "source/HL_system.d" 
+	-$(RM) "source/HL_epc.obj" "source/HL_errata.obj" "source/HL_esm.obj" "source/HL_etpwm.obj" "source/HL_nmpu.obj" "source/HL_notification.obj" "source/HL_pinmux.obj" "source/HL_rti.obj" "source/HL_sys_core.obj" "source/HL_sys_dma.obj" "source/HL_sys_intvecs.obj" "source/HL_sys_main.obj" "source/HL_sys_mpu.obj" "source/HL_sys_pcr.obj" "source/HL_sys_phantom.obj" "source/HL_sys_pmm.obj" "source/HL_sys_pmu.obj" "source/HL_sys_startup.obj" "source/HL_sys_vim.obj" "source/HL_system.obj" 
+	-$(RM) "source/HL_epc.d" "source/HL_errata.d" "source/HL_esm.d" "source/HL_etpwm.d" "source/HL_nmpu.d" "source/HL_notification.d" "source/HL_pinmux.d" "source/HL_rti.d" "source/HL_sys_dma.d" "source/HL_sys_main.d" "source/HL_sys_pcr.d" "source/HL_sys_phantom.d" "source/HL_sys_pmm.d" "source/HL_sys_startup.d" "source/HL_sys_vim.d" "source/HL_system.d" 
 	-$(RM) "source/HL_sys_core.d" "source/HL_sys_intvecs.d" "source/HL_sys_mpu.d" "source/HL_sys_pmu.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
