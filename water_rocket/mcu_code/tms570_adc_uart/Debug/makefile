@@ -29,7 +29,6 @@ ORDERED_OBJS += \
 "./source/HL_sys_startup.obj" \
 "./source/HL_sys_vim.obj" \
 "./source/HL_system.obj" \
-"../source/HL_sys_link.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
 
@@ -151,11 +150,11 @@ BIN_OUTPUTS__QUOTED += \
 
 
 # All Target
-all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+all: $(OBJS) $(GEN_CMDS)
 	@$(MAKE) --no-print-directory -Onone "tms570_adc_uart.out"
 
 # Tool invocations
-tms570_adc_uart.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+tms570_adc_uart.out: $(OBJS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: ARM Linker'
 	"/home/leedh/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS/bin/armcl" -mv7R5 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"tms570_adc_uart.map" --heap_size=0x800 --stack_size=0x800 -i"/home/leedh/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS/lib" -i"/home/leedh/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="tms570_adc_uart_linkInfo.xml" --rom_model --be32 -o "tms570_adc_uart.out" $(ORDERED_OBJS)
