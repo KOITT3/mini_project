@@ -52,6 +52,7 @@
 #include "HL_adc.h"
 #include "HL_gio.h"
 #include "HL_sci.h"
+#include "HL_rti.h"
 #include "HL_i2c.h"
 #include "HL_epc.h"
 #include "HL_sys_dma.h"
@@ -109,6 +110,16 @@ void dmaGroupANotification(dmaInterrupt_t inttype, uint32 channel)
 /* USER CODE END */
 
 /* USER CODE BEGIN (11) */
+/* USER CODE END */
+#pragma WEAK(rtiNotification)
+void rtiNotification(rtiBASE_t *rtiREG, uint32 notification)
+{
+/*  enter user code between the USER CODE BEGIN and USER CODE END. */
+/* USER CODE BEGIN (12) */
+/* USER CODE END */
+}
+
+/* USER CODE BEGIN (13) */
 /* USER CODE END */
 #pragma WEAK(adcNotification)
 void adcNotification(adcBASE_t *adc, uint32 group)

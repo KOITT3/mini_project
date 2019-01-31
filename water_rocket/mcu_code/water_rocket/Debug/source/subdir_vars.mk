@@ -22,6 +22,7 @@ C_SRCS += \
 ../source/HL_nmpu.c \
 ../source/HL_notification.c \
 ../source/HL_pinmux.c \
+../source/HL_rti.c \
 ../source/HL_sci.c \
 ../source/HL_sys_dma.c \
 ../source/HL_sys_main.c \
@@ -42,6 +43,7 @@ C_DEPS += \
 ./source/HL_nmpu.d \
 ./source/HL_notification.d \
 ./source/HL_pinmux.d \
+./source/HL_rti.d \
 ./source/HL_sci.d \
 ./source/HL_sys_dma.d \
 ./source/HL_sys_main.d \
@@ -62,6 +64,7 @@ OBJS += \
 ./source/HL_nmpu.obj \
 ./source/HL_notification.obj \
 ./source/HL_pinmux.obj \
+./source/HL_rti.obj \
 ./source/HL_sci.obj \
 ./source/HL_sys_core.obj \
 ./source/HL_sys_dma.obj \
@@ -92,6 +95,7 @@ OBJS__QUOTED += \
 "source/HL_nmpu.obj" \
 "source/HL_notification.obj" \
 "source/HL_pinmux.obj" \
+"source/HL_rti.obj" \
 "source/HL_sci.obj" \
 "source/HL_sys_core.obj" \
 "source/HL_sys_dma.obj" \
@@ -116,6 +120,7 @@ C_DEPS__QUOTED += \
 "source/HL_nmpu.d" \
 "source/HL_notification.d" \
 "source/HL_pinmux.d" \
+"source/HL_rti.d" \
 "source/HL_sci.d" \
 "source/HL_sys_dma.d" \
 "source/HL_sys_main.d" \
@@ -142,6 +147,7 @@ C_SRCS__QUOTED += \
 "../source/HL_nmpu.c" \
 "../source/HL_notification.c" \
 "../source/HL_pinmux.c" \
+"../source/HL_rti.c" \
 "../source/HL_sci.c" \
 "../source/HL_sys_dma.c" \
 "../source/HL_sys_main.c" \

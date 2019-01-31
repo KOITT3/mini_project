@@ -170,8 +170,8 @@ typedef struct i2c_config_reg
                                  | (uint32)((uint32)0U << 1U) \
                                  | ((uint32)0U))
 
-#define I2C2_CLKL_CONFIGVALUE      37U
-#define I2C2_CLKH_CONFIGVALUE      37U
+#define I2C2_CLKL_CONFIGVALUE      9U
+#define I2C2_CLKH_CONFIGVALUE      9U
 #define I2C2_CNT_CONFIGVALUE       8U
 #define I2C2_SAR_CONFIGVALUE       0x000003FFU
 #define I2C2_MDR_CONFIGVALUE       ((uint32)0x00000000U \

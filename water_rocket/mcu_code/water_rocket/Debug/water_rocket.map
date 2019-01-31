@@ -1,10 +1,10 @@
 ******************************************************************************
                   TI ARM Linker Unix v18.1.4                   
 ******************************************************************************
->> Linked Tue Jan 29 19:31:36 2019
+>> Linked Thu Jan 31 15:52:38 2019
 
 OUTPUT FILE NAME:   <water_rocket.out>
-ENTRY POINT SYMBOL: "_c_int00"  address: 00008028
+ENTRY POINT SYMBOL: "_c_int00"  address: 00008948
 
 
 MEMORY CONFIGURATION
@@ -12,26 +12,26 @@ MEMORY CONFIGURATION
          name            origin    length      used     unused   attr    fill
 ----------------------  --------  ---------  --------  --------  ----  --------
   VECTORS               00000000   00000020  00000020  00000000     X
-  FLASH0                00000020   001fffe0  000097fb  001f67e5  R  X
+  FLASH0                00000020   001fffe0  0000a0bf  001f5f21  R  X
   FLASH1                00200000   00200000  00000000  00200000  R  X
   STACKS                08000000   00001500  00000000  00001500  RW  
-  RAM                   08001500   0007eb00  00000c30  0007ded0  RW  
+  RAM                   08001500   0007eb00  00000c34  0007decc  RW  
 
 
 SEGMENT ALLOCATION MAP
 
 run origin  load origin   length   init length attrs members
 ----------  ----------- ---------- ----------- ----- -------
-00000000    00000000    00009448   00009448    r-x
+00000000    00000000    00009d0c   00009d0c    r-x
   00000000    00000000    00000020   00000020    r-x .intvecs
-  00000020    00000020    00009428   00009428    r-x .text
-00009460    00009460    000003d8   000003d8    r--
-  00009460    00009460    0000033b   0000033b    r-- .const
-  000097a0    000097a0    00000098   00000098    r-- .cinit
-08001500    08001500    00000c30   00000000    rw-
+  00000020    00000020    00009cec   00009cec    r-x .text
+00009d20    00009d20    000003d8   000003d8    r--
+  00009d20    00009d20    0000033b   0000033b    r-- .const
+  0000a060    0000a060    00000098   00000098    r-- .cinit
+08001500    08001500    00000c34   00000000    rw-
   08001500    08001500    00000800   00000000    rw- .sysmem
-  08001d00    08001d00    00000244   00000000    rw- .bss
-  08001f44    08001f44    000001ec   00000000    rw- .data
+  08001d00    08001d00    00000248   00000000    rw- .bss
+  08001f48    08001f48    000001ec   00000000    rw- .data
 
 
 SECTION ALLOCATION MAP
@@ -42,120 +42,122 @@ section   page    origin      length       input sections
 .intvecs   0    00000000    00000020     
                   00000000    00000020     HL_sys_intvecs.obj (.intvecs)
 
-.text      0    00000020    00009428     
+.text      0    00000020    00009cec     
                   00000020    00000f9c     rtsv7R4_A_be_v3D16_eabi.lib : _printfi.c.obj (.text:__TI_printfi)
                   00000fbc    00000aec     HL_adc.obj (.text)
                   00001aa8    000009e4     HL_i2c.obj (.text)
                   0000248c    000009c4     HL_pinmux.obj (.text)
-                  00002e50    0000095c     HL_system.obj (.text)
-                  000037ac    00000938     HL_sys_vim.obj (.text)
-                  000040e4    00000870     HL_sci.obj (.text)
-                  00004954    000007b8     HL_sys_main.obj (.text)
-                  0000510c    0000078c     HL_esm.obj (.text)
-                  00005898    00000484     HL_gio.obj (.text)
-                  00005d1c    000003c4     HL_sys_core.obj (.text)
-                  000060e0    0000036c     HL_sys_mpu.obj (.text)
-                  0000644c    0000033c     HL_sys_vim.obj (.text:retain)
-                  00006788    000002dc     rtsv7R4_A_be_v3D16_eabi.lib : _printfi.c.obj (.text:_pconv_a)
-                  00006a64    000002b8                                 : ull_div32.asm.obj (.text)
-                  00006d1c    00000248                                 : _printfi.c.obj (.text:_pconv_g)
-                  00006f64    000001a4                                 : fputs.c.obj (.text:fputs)
-                  00007108    00000180                                 : memcpy32.asm.obj (.text)
-                  00007288    00000178     HL_esm.obj (.text:retain)
-                  00007400    0000016c     rtsv7R4_A_be_v3D16_eabi.lib : memory.c.obj (.text:free)
-                  0000756c    0000015c                                 : _printfi.c.obj (.text:_pconv_e)
-                  000076c8    00000158                                 : setvbuf.c.obj (.text:setvbuf)
-                  00007820    00000144                                 : _printfi.c.obj (.text:fcvt)
-                  00007964    0000013c                                 : s_floor.c.obj (.text:floor)
-                  00007aa0    00000120                                 : s_scalbn.c.obj (.text:scalbn)
-                  00007bc0    00000115                                 : _printfi.c.obj (.text:_ltostr)
-                  00007cd5    00000003     --HOLE-- [fill = 0]
-                  00007cd8    00000100                                 : fputc.c.obj (.text:fputc)
-                  00007dd8    000000d0                                 : memory.c.obj (.text:malloc)
-                  00007ea8    000000c8                                 : _printfi.c.obj (.text:_mcpy)
-                  00007f70    000000b8                                 : fclose.c.obj (.text:__TI_closefile)
-                  00008028    000000b4     HL_sys_startup.obj (.text:retain)
-                  000080dc    000000b0     HL_notification.obj (.text)
-                  0000818c    000000b0     rtsv7R4_A_be_v3D16_eabi.lib : memset32.asm.obj (.text)
-                  0000823c    000000ac                                 : hostlseek.c.obj (.text:HOSTlseek)
-                  000082e8    000000a8                                 : fseek.c.obj (.text:fseek)
-                  00008390    000000a4                                 : hostrename.c.obj (.text:HOSTrename)
-                  00008434    000000a0                                 : _io_perm.c.obj (.text:__TI_wrt_ok)
-                  000084d4    0000009c                                 : printf.c.obj (.text:printf)
-                  00008570    00000098                                 : hostopen.c.obj (.text:HOSTopen)
-                  00008608    00000098                                 : _printfi.c.obj (.text:_ecpy)
-                  000086a0    00000098                                 : close.c.obj (.text:close)
-                  00008738    00000090                                 : hostread.c.obj (.text:HOSTread)
-                  000087c8    00000090                                 : hostwrite.c.obj (.text:HOSTwrite)
-                  00008858    00000090                                 : copy_decompress_lzss.c.obj (.text:decompress:lzss:__TI_decompress_lzss)
-                  000088e8    0000008c                                 : s_frexp.c.obj (.text:frexp)
-                  00008974    00000084                                 : fflush.c.obj (.text:__TI_doflush)
-                  000089f8    00000084                                 : atoi.c.obj (.text:atoi)
-                  00008a7c    00000080                                 : ltoa.c.obj (.text:ltoa)
-                  00008afc    0000007c                                 : exit.c.obj (.text:exit)
-                  00008b78    00000074                                 : hostclose.c.obj (.text:HOSTclose)
-                  00008bec    00000074                                 : _printfi.c.obj (.text:_pconv_f)
-                  00008c60    00000070                                 : hostunlink.c.obj (.text:HOSTunlink)
-                  00008cd0    0000006c                                 : getdevice.c.obj (.text:getdevice)
-                  00008d3c    0000006c                                 : memory.c.obj (.text:minsert)
-                  00008da8    00000068                                 : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit:__TI_auto_init_nobinit_nopinit)
-                  00008e10    00000064                                 : _printfi.c.obj (.text:_fcpy)
-                  00008e74    00000064                                 : sprintf.c.obj (.text:sprintf)
-                  00008ed8    0000005c                                 : memory.c.obj (.text:minit)
-                  00008f34    00000054                                 : fopen.c.obj (.text:__TI_cleanup)
-                  00008f88    00000054                                 : trgmsg.c.obj (.text:__TI_readmsg)
-                  00008fdc    00000054                                 : trgmsg.c.obj (.text:__TI_writemsg)
-                  00009030    00000054                                 : getdevice.c.obj (.text:finddevice)
-                  00009084    00000054                                 : i_div32.asm.obj (.text)
-                  000090d8    00000050                                 : u_div32.asm.obj (.text)
-                  00009128    00000048                                 : memory.c.obj (.text:mremove)
-                  00009170    00000048                                 : strncpy.c.obj (.text:strncpy)
-                  000091b8    00000048                                 : unlink.c.obj (.text:unlink)
-                  00009200    00000044                                 : lseek.c.obj (.text:lseek)
-                  00009244    00000044                                 : write.c.obj (.text:write)
-                  00009288    00000030                                 : sprintf.c.obj (.text:_outs)
-                  000092b8    0000002c                                 : memccpy.c.obj (.text:memccpy)
-                  000092e4    0000002c                                 : memchr.c.obj (.text:memchr)
-                  00009310    00000028                                 : strchr.c.obj (.text:strchr)
-                  00009338    00000028                                 : strcmp.c.obj (.text:strcmp)
-                  00009360    00000024                                 : wcslen.c.obj (.text:wcslen)
-                  00009384    00000020                                 : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init_nomemset:__TI_zero_init_nomemset)
-                  000093a4    00000020                                 : strlen.c.obj (.text:strlen)
-                  000093c4    0000001c                                 : s_copysign.c.obj (.text:copysign)
-                  000093e0    00000018                                 : strcpy.c.obj (.text:strcpy)
-                  000093f8    00000014                                 : sprintf.c.obj (.text:_outc)
-                  0000940c    00000014                                 : copy_decompress_none.c.obj (.text:decompress:none:__TI_decompress_none)
-                  00009420    0000000c                                 : errno.c.obj (.text:__aeabi_errno_addr)
-                  0000942c    00000008                                 : exit.c.obj (.text:abort:abort)
-                  00009434    00000004                                 : _lock.c.obj (.text:_nop)
-                  00009438    00000004                                 : printf.c.obj (.text:_outc)
-                  0000943c    00000004                                 : printf.c.obj (.text:_outs)
-                  00009440    00000004     HL_sys_phantom.obj (.text:retain)
-                  00009444    00000004     rtsv7R4_A_be_v3D16_eabi.lib : div0.asm.obj (.text)
+                  00002e50    00000978     HL_sys_main.obj (.text)
+                  000037c8    0000095c     HL_system.obj (.text)
+                  00004124    00000938     HL_sys_vim.obj (.text)
+                  00004a5c    00000870     HL_sci.obj (.text)
+                  000052cc    0000078c     HL_esm.obj (.text)
+                  00005a58    0000069c     HL_rti.obj (.text)
+                  000060f4    00000484     HL_gio.obj (.text)
+                  00006578    000003c4     HL_sys_core.obj (.text)
+                  0000693c    0000036c     HL_sys_mpu.obj (.text)
+                  00006ca8    0000033c     HL_sys_vim.obj (.text:retain)
+                  00006fe4    000002dc     rtsv7R4_A_be_v3D16_eabi.lib : _printfi.c.obj (.text:_pconv_a)
+                  000072c0    000002b8                                 : ull_div32.asm.obj (.text)
+                  00007578    00000248                                 : _printfi.c.obj (.text:_pconv_g)
+                  000077c0    000001a4                                 : fputs.c.obj (.text:fputs)
+                  00007964    00000180                                 : memcpy32.asm.obj (.text)
+                  00007ae4    00000178     HL_esm.obj (.text:retain)
+                  00007c5c    0000016c     rtsv7R4_A_be_v3D16_eabi.lib : memory.c.obj (.text:free)
+                  00007dc8    0000015c                                 : _printfi.c.obj (.text:_pconv_e)
+                  00007f24    00000158                                 : setvbuf.c.obj (.text:setvbuf)
+                  0000807c    00000144                                 : _printfi.c.obj (.text:fcvt)
+                  000081c0    0000013c                                 : s_floor.c.obj (.text:floor)
+                  000082fc    00000120                                 : s_scalbn.c.obj (.text:scalbn)
+                  0000841c    00000115                                 : _printfi.c.obj (.text:_ltostr)
+                  00008531    00000003     --HOLE-- [fill = 0]
+                  00008534    00000100                                 : fputc.c.obj (.text:fputc)
+                  00008634    000000d0                                 : memory.c.obj (.text:malloc)
+                  00008704    000000c8                                 : _printfi.c.obj (.text:_mcpy)
+                  000087cc    000000c4     HL_notification.obj (.text)
+                  00008890    000000b8     rtsv7R4_A_be_v3D16_eabi.lib : fclose.c.obj (.text:__TI_closefile)
+                  00008948    000000b4     HL_sys_startup.obj (.text:retain)
+                  000089fc    000000b0     rtsv7R4_A_be_v3D16_eabi.lib : memset32.asm.obj (.text)
+                  00008aac    000000ac                                 : hostlseek.c.obj (.text:HOSTlseek)
+                  00008b58    000000a8                                 : fseek.c.obj (.text:fseek)
+                  00008c00    000000a4                                 : hostrename.c.obj (.text:HOSTrename)
+                  00008ca4    000000a0                                 : _io_perm.c.obj (.text:__TI_wrt_ok)
+                  00008d44    0000009c                                 : printf.c.obj (.text:printf)
+                  00008de0    00000098                                 : hostopen.c.obj (.text:HOSTopen)
+                  00008e78    00000098                                 : _printfi.c.obj (.text:_ecpy)
+                  00008f10    00000098                                 : close.c.obj (.text:close)
+                  00008fa8    00000090                                 : hostread.c.obj (.text:HOSTread)
+                  00009038    00000090                                 : hostwrite.c.obj (.text:HOSTwrite)
+                  000090c8    00000090                                 : copy_decompress_lzss.c.obj (.text:decompress:lzss:__TI_decompress_lzss)
+                  00009158    0000008c                                 : s_frexp.c.obj (.text:frexp)
+                  000091e4    00000084                                 : fflush.c.obj (.text:__TI_doflush)
+                  00009268    00000084                                 : atoi.c.obj (.text:atoi)
+                  000092ec    00000080                                 : ltoa.c.obj (.text:ltoa)
+                  0000936c    0000007c                                 : exit.c.obj (.text:exit)
+                  000093e8    00000074                                 : hostclose.c.obj (.text:HOSTclose)
+                  0000945c    00000074                                 : _printfi.c.obj (.text:_pconv_f)
+                  000094d0    00000070                                 : hostunlink.c.obj (.text:HOSTunlink)
+                  00009540    0000006c                                 : getdevice.c.obj (.text:getdevice)
+                  000095ac    0000006c                                 : memory.c.obj (.text:minsert)
+                  00009618    00000068                                 : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit:__TI_auto_init_nobinit_nopinit)
+                  00009680    00000064                                 : _printfi.c.obj (.text:_fcpy)
+                  000096e4    00000064                                 : sprintf.c.obj (.text:sprintf)
+                  00009748    0000005c                                 : memory.c.obj (.text:minit)
+                  000097a4    00000054                                 : fopen.c.obj (.text:__TI_cleanup)
+                  000097f8    00000054                                 : trgmsg.c.obj (.text:__TI_readmsg)
+                  0000984c    00000054                                 : trgmsg.c.obj (.text:__TI_writemsg)
+                  000098a0    00000054                                 : getdevice.c.obj (.text:finddevice)
+                  000098f4    00000054     HL_rti.obj (.text:retain)
+                  00009948    00000054     rtsv7R4_A_be_v3D16_eabi.lib : i_div32.asm.obj (.text)
+                  0000999c    00000050                                 : u_div32.asm.obj (.text)
+                  000099ec    00000048                                 : memory.c.obj (.text:mremove)
+                  00009a34    00000048                                 : strncpy.c.obj (.text:strncpy)
+                  00009a7c    00000048                                 : unlink.c.obj (.text:unlink)
+                  00009ac4    00000044                                 : lseek.c.obj (.text:lseek)
+                  00009b08    00000044                                 : write.c.obj (.text:write)
+                  00009b4c    00000030                                 : sprintf.c.obj (.text:_outs)
+                  00009b7c    0000002c                                 : memccpy.c.obj (.text:memccpy)
+                  00009ba8    0000002c                                 : memchr.c.obj (.text:memchr)
+                  00009bd4    00000028                                 : strchr.c.obj (.text:strchr)
+                  00009bfc    00000028                                 : strcmp.c.obj (.text:strcmp)
+                  00009c24    00000024                                 : wcslen.c.obj (.text:wcslen)
+                  00009c48    00000020                                 : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init_nomemset:__TI_zero_init_nomemset)
+                  00009c68    00000020                                 : strlen.c.obj (.text:strlen)
+                  00009c88    0000001c                                 : s_copysign.c.obj (.text:copysign)
+                  00009ca4    00000018                                 : strcpy.c.obj (.text:strcpy)
+                  00009cbc    00000014                                 : sprintf.c.obj (.text:_outc)
+                  00009cd0    00000014                                 : copy_decompress_none.c.obj (.text:decompress:none:__TI_decompress_none)
+                  00009ce4    0000000c                                 : errno.c.obj (.text:__aeabi_errno_addr)
+                  00009cf0    00000008                                 : exit.c.obj (.text:abort:abort)
+                  00009cf8    00000004                                 : _lock.c.obj (.text:_nop)
+                  00009cfc    00000004                                 : printf.c.obj (.text:_outc)
+                  00009d00    00000004                                 : printf.c.obj (.text:_outs)
+                  00009d04    00000004     HL_sys_phantom.obj (.text:retain)
+                  00009d08    00000004     rtsv7R4_A_be_v3D16_eabi.lib : div0.asm.obj (.text)
 
-.const     0    00009460    0000033b     
-                  00009460    00000200     HL_sys_vim.obj (.const:s_vim_init)
-                  00009660    00000101     rtsv7R4_A_be_v3D16_eabi.lib : ctype.c.obj (.const:.string:_ctypes_)
-                  00009761    00000001     HL_sys_main.obj (.const:.string:$P$T1$2)
-                  00009762    00000001     HL_sys_main.obj (.const:.string:$P$T2$3)
-                  00009763    00000001     --HOLE-- [fill = 0]
-                  00009764    00000018     HL_adc.obj (.const:s_adcFiFoSize)
-                  0000977c    00000018     HL_adc.obj (.const:s_adcSelect)
-                  00009794    00000007     HL_sys_main.obj (.const:.string:$P$T0$1)
+.const     0    00009d20    0000033b     
+                  00009d20    00000200     HL_sys_vim.obj (.const:s_vim_init)
+                  00009f20    00000101     rtsv7R4_A_be_v3D16_eabi.lib : ctype.c.obj (.const:.string:_ctypes_)
+                  0000a021    00000001     HL_sys_main.obj (.const:.string:$P$T1$2)
+                  0000a022    00000001     HL_sys_main.obj (.const:.string:$P$T2$3)
+                  0000a023    00000001     --HOLE-- [fill = 0]
+                  0000a024    00000018     HL_adc.obj (.const:s_adcFiFoSize)
+                  0000a03c    00000018     HL_adc.obj (.const:s_adcSelect)
+                  0000a054    00000007     HL_sys_main.obj (.const:.string:$P$T0$1)
 
-.cinit     0    000097a0    00000098     
-                  000097a0    0000006f     (.cinit..data.load) [load image, compression = lzss]
-                  0000980f    00000001     --HOLE-- [fill = 0]
-                  00009810    0000000c     (__TI_handler_table)
-                  0000981c    00000004     --HOLE-- [fill = 0]
-                  00009820    00000008     (.cinit..bss.load) [load image, compression = zero_init]
-                  00009828    00000010     (__TI_cinit_table)
+.cinit     0    0000a060    00000098     
+                  0000a060    0000006f     (.cinit..data.load) [load image, compression = lzss]
+                  0000a0cf    00000001     --HOLE-- [fill = 0]
+                  0000a0d0    0000000c     (__TI_handler_table)
+                  0000a0dc    00000004     --HOLE-- [fill = 0]
+                  0000a0e0    00000008     (.cinit..bss.load) [load image, compression = zero_init]
+                  0000a0e8    00000010     (__TI_cinit_table)
 
 .sysmem    0    08001500    00000800     UNINITIALIZED
                   08001500    00000008     rtsv7R4_A_be_v3D16_eabi.lib : memory.c.obj (.sysmem)
                   08001508    000007f8     --HOLE--
 
-.bss       0    08001d00    00000244     UNINITIALIZED
+.bss       0    08001d00    00000248     UNINITIALIZED
                   08001d00    00000120     rtsv7R4_A_be_v3D16_eabi.lib : trgmsg.c.obj (.bss:_CIOBUF_)
                   08001e20    000000a0     (.common:__TI_tmpnams)
                   08001ec0    00000050     HL_sci.obj (.bss:g_sciTransfer_t)
@@ -163,20 +165,21 @@ section   page    origin      length       input sections
                   08001f28    00000008     (.common:adc_data)
                   08001f30    00000008     (.common:parmbuf)
                   08001f38    00000004     (.common:flag)
-                  08001f3c    00000004     (.common:receives)
-                  08001f40    00000002     (.common:avr_sum)
-                  08001f42    00000001     (.common:avr_cnt)
-                  08001f43    00000001     (.common:bias_cnt)
+                  08001f3c    00000004     (.common:limit_air)
+                  08001f40    00000004     (.common:receives)
+                  08001f44    00000002     (.common:avr_sum)
+                  08001f46    00000001     (.common:avr_cnt)
+                  08001f47    00000001     (.common:bias_cnt)
 
-.data      0    08001f44    000001ec     UNINITIALIZED
-                  08001f44    000000f0     rtsv7R4_A_be_v3D16_eabi.lib : defs.c.obj (.data:_ftable)
-                  08002034    00000078                                 : write.c.obj (.data:_device)
-                  080020ac    00000050                                 : write.c.obj (.data:_stream)
-                  080020fc    00000010                                 : defs.c.obj (.data)
-                  0800210c    0000000c                                 : exit.c.obj (.data:$O1$$)
-                  08002118    0000000c                                 : memory.c.obj (.data:$O1$$)
-                  08002124    00000008                                 : _lock.c.obj (.data:$O1$$)
-                  0800212c    00000004                                 : errno.c.obj (.data)
+.data      0    08001f48    000001ec     UNINITIALIZED
+                  08001f48    000000f0     rtsv7R4_A_be_v3D16_eabi.lib : defs.c.obj (.data:_ftable)
+                  08002038    00000078                                 : write.c.obj (.data:_device)
+                  080020b0    00000050                                 : write.c.obj (.data:_stream)
+                  08002100    00000010                                 : defs.c.obj (.data)
+                  08002110    0000000c                                 : exit.c.obj (.data:$O1$$)
+                  0800211c    0000000c                                 : memory.c.obj (.data:$O1$$)
+                  08002128    00000008                                 : _lock.c.obj (.data:$O1$$)
+                  08002130    00000004                                 : errno.c.obj (.data)
 
 MODULE SUMMARY
 
@@ -187,19 +190,20 @@ MODULE SUMMARY
        HL_adc.obj                   2796    48        0      
        HL_i2c.obj                   2532    0         24     
        HL_pinmux.obj                2500    0         0      
+       HL_sys_main.obj              2424    9         24     
        HL_system.obj                2396    0         0      
        HL_esm.obj                   2308    0         0      
        HL_sci.obj                   2160    0         80     
-       HL_sys_main.obj              1976    9         20     
+       HL_rti.obj                   1776    0         0      
        HL_gio.obj                   1156    0         0      
        HL_sys_core.obj              964     0         0      
        HL_sys_mpu.obj               876     0         0      
+       HL_notification.obj          196     0         0      
        HL_sys_startup.obj           180     0         0      
-       HL_notification.obj          176     0         0      
        HL_sys_intvecs.obj           32      0         0      
        HL_sys_phantom.obj           4       0         0      
     +--+----------------------------+-------+---------+---------+
-       Total:                       23244   569       124    
+       Total:                       25488   569       128    
                                                              
     /home/leedh/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS/lib/rtsv7R4_A_be_v3D16_eabi.lib
        _printfi.c.obj               6829    0         0      
@@ -262,19 +266,19 @@ MODULE SUMMARY
        Heap:                        0       0         2048   
        Linker Generated:            0       147       0      
     +--+----------------------------+-------+---------+---------+
-       Grand Total:                 37957   973       3120   
+       Grand Total:                 40201   973       3124   
 
 
 LINKER GENERATED COPY TABLES
 
-__TI_cinit_table @ 00009828 records: 2, size/record: 8, table size: 16
-	.data: load addr=000097a0, load size=0000006f bytes, run addr=08001f44, run size=000001ec bytes, compression=lzss
-	.bss: load addr=00009820, load size=00000008 bytes, run addr=08001d00, run size=00000244 bytes, compression=zero_init
+__TI_cinit_table @ 0000a0e8 records: 2, size/record: 8, table size: 16
+	.data: load addr=0000a060, load size=0000006f bytes, run addr=08001f48, run size=000001ec bytes, compression=lzss
+	.bss: load addr=0000a0e0, load size=00000008 bytes, run addr=08001d00, run size=00000248 bytes, compression=zero_init
 
 
 LINKER GENERATED HANDLER TABLE
 
-__TI_handler_table @ 00009810 records: 3, size/record: 4, table size: 12
+__TI_handler_table @ 0000a0d0 records: 3, size/record: 4, table size: 12
 	index: 0, handler: __TI_zero_init
 	index: 1, handler: __TI_decompress_lzss
 	index: 2, handler: __TI_decompress_none
@@ -284,123 +288,124 @@ GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name
 
 address   name                                
 -------   ----                                
-0000942c  C$$EXIT                             
-00009024  C$$IO$$                             
-00008b78  HOSTclose                           
-0000823c  HOSTlseek                           
-00008570  HOSTopen                            
-00008738  HOSTread                            
-00008390  HOSTrename                          
-00008c60  HOSTunlink                          
-000087c8  HOSTwrite                           
+00009cf0  C$$EXIT                             
+00009894  C$$IO$$                             
+000093e8  HOSTclose                           
+00008aac  HOSTlseek                           
+00008de0  HOSTopen                            
+00008fa8  HOSTread                            
+00008c00  HOSTrename                          
+000094d0  HOSTunlink                          
+00009038  HOSTwrite                           
+00005e24  IsdwdKeySequenceCorrect             
 UNDEFED   SHT$$INIT_ARRAY$$Base               
 UNDEFED   SHT$$INIT_ARRAY$$Limit              
 08001d00  __CIOBUF_                           
 00000800  __SYSMEM_SIZE                       
-00009828  __TI_CINIT_Base                     
-00009838  __TI_CINIT_Limit                    
-00009810  __TI_Handler_Table_Base             
-0000981c  __TI_Handler_Table_Limit            
-000060d8  __TI_PINIT_Base                     
-000060dc  __TI_PINIT_Limit                    
-00008da8  __TI_auto_init_nobinit_nopinit      
-00008f34  __TI_cleanup                        
-0800210c  __TI_cleanup_ptr                    
-00007f70  __TI_closefile                      
-00008858  __TI_decompress_lzss                
-0000940c  __TI_decompress_none                
-00008974  __TI_doflush                        
-08002110  __TI_dtors_ptr                      
-08002114  __TI_enable_exit_profile_output     
-080020fc  __TI_ft_end                         
+0000a0e8  __TI_CINIT_Base                     
+0000a0f8  __TI_CINIT_Limit                    
+0000a0d0  __TI_Handler_Table_Base             
+0000a0dc  __TI_Handler_Table_Limit            
+00006934  __TI_PINIT_Base                     
+00006938  __TI_PINIT_Limit                    
+00009618  __TI_auto_init_nobinit_nopinit      
+000097a4  __TI_cleanup                        
+08002110  __TI_cleanup_ptr                    
+00008890  __TI_closefile                      
+000090c8  __TI_decompress_lzss                
+00009cd0  __TI_decompress_none                
+000091e4  __TI_doflush                        
+08002114  __TI_dtors_ptr                      
+08002118  __TI_enable_exit_profile_output     
+08002100  __TI_ft_end                         
 ffffffff  __TI_pprof_out_hndl                 
 00000020  __TI_printfi                        
 ffffffff  __TI_prof_data_size                 
 ffffffff  __TI_prof_data_start                
-00008f88  __TI_readmsg                        
+000097f8  __TI_readmsg                        
 00000000  __TI_static_base__                  
 08001e20  __TI_tmpnams                        
-00008fdc  __TI_writemsg                       
-00008434  __TI_wrt_ok                         
-00009384  __TI_zero_init_nomemset             
-00009420  __aeabi_errno_addr                  
-00009084  __aeabi_idiv                        
-00009444  __aeabi_idiv0                       
-00009084  __aeabi_idivmod                     
-00009444  __aeabi_ldiv0                       
-0000818c  __aeabi_memclr                      
-0000818c  __aeabi_memclr4                     
-0000818c  __aeabi_memclr8                     
-00007108  __aeabi_memcpy                      
-00007108  __aeabi_memcpy4                     
-00007108  __aeabi_memcpy8                     
-00008190  __aeabi_memset                      
-00008190  __aeabi_memset4                     
-00008190  __aeabi_memset8                     
-08002108  __aeabi_stderr                      
-08002100  __aeabi_stdin                       
-08002104  __aeabi_stdout                      
-000090d8  __aeabi_uidiv                       
-000090d8  __aeabi_uidivmod                    
-00006a64  __aeabi_uldivmod                    
+0000984c  __TI_writemsg                       
+00008ca4  __TI_wrt_ok                         
+00009c48  __TI_zero_init_nomemset             
+00009ce4  __aeabi_errno_addr                  
+00009948  __aeabi_idiv                        
+00009d08  __aeabi_idiv0                       
+00009948  __aeabi_idivmod                     
+00009d08  __aeabi_ldiv0                       
+000089fc  __aeabi_memclr                      
+000089fc  __aeabi_memclr4                     
+000089fc  __aeabi_memclr8                     
+00007964  __aeabi_memcpy                      
+00007964  __aeabi_memcpy4                     
+00007964  __aeabi_memcpy8                     
+00008a00  __aeabi_memset                      
+00008a00  __aeabi_memset4                     
+00008a00  __aeabi_memset8                     
+0800210c  __aeabi_stderr                      
+08002104  __aeabi_stdin                       
+08002108  __aeabi_stdout                      
+0000999c  __aeabi_uidiv                       
+0000999c  __aeabi_uidivmod                    
+000072c0  __aeabi_uldivmod                    
 ffffffff  __binit__                           
 ffffffff  __c_args__                          
-00008028  _c_int00                            
-0000608c  _cacheDisable_                      
-00006048  _cacheEnable_                       
-00006028  _checkMemInitOn_                    
-00005f34  _coreClearAuxiliaryDataFault_       
-00005f48  _coreClearAuxiliaryInstructionFault_
-00005f0c  _coreClearDataFaultAddress_         
-00005ee4  _coreClearDataFault_                
-00005f20  _coreClearInstructionFaultAddress_  
-00005ef8  _coreClearInstructionFault_         
-00005ebc  _coreDisableEventBusExport_         
-00005eac  _coreEnableEventBusExport_          
-00005ecc  _coreEnableIrqVicOffset_            
-00005e94  _coreEnableVfp_                     
-00005f2c  _coreGetAuxiliaryDataFault_         
-00005f40  _coreGetAuxiliaryInstructionFault_  
-00005f04  _coreGetDataFaultAddress_           
-00005edc  _coreGetDataFault_                  
-00005f18  _coreGetInstructionFaultAddress_    
-00005ef0  _coreGetInstructionFault_           
-00005d1c  _coreInitRegisters_                 
-00005e28  _coreInitStackPointer_              
-00009660  _ctypes_                            
-000060b0  _dCacheInvalidate_                  
-08002034  _device                             
-00005f54  _disable_IRQ_interrupt_             
-00005f5c  _enable_IRQ_interrupt_              
-00005f64  _enable_interrupt_                  
-00005f6c  _esmCcmErrorsClear_                 
-08001f44  _ftable                             
-00005e74  _getCPSRValue_                      
-00005e7c  _gotoCPUIdle_                       
-000060c4  _iCacheInvalidate_                  
-08002124  _lock                               
-00005ff4  _memInit_                           
-000063f4  _mpuAreRegionsSeparate_             
-000063d8  _mpuDisableBackgroundRegion_        
-000063b0  _mpuDisable_                        
-000063c8  _mpuEnableBackgroundRegion_         
-00006398  _mpuEnable_                         
-000063e8  _mpuGetNumberOfRegions_             
-00006418  _mpuGetRegionBaseAddress_           
-00006438  _mpuGetRegionPermission_            
-0000642c  _mpuGetRegionType_                  
-00006408  _mpuGetRegion_                      
-000060e0  _mpuInit_                           
-00006410  _mpuSetRegionBaseAddress_           
-00006444  _mpuSetRegionSizeRegister_          
-00006420  _mpuSetRegionTypeAndPermission_     
-00006400  _mpuSetRegion_                      
-00009434  _nop                                
-080020ac  _stream                             
+00008948  _c_int00                            
+000068e8  _cacheDisable_                      
+000068a4  _cacheEnable_                       
+00006884  _checkMemInitOn_                    
+00006790  _coreClearAuxiliaryDataFault_       
+000067a4  _coreClearAuxiliaryInstructionFault_
+00006768  _coreClearDataFaultAddress_         
+00006740  _coreClearDataFault_                
+0000677c  _coreClearInstructionFaultAddress_  
+00006754  _coreClearInstructionFault_         
+00006718  _coreDisableEventBusExport_         
+00006708  _coreEnableEventBusExport_          
+00006728  _coreEnableIrqVicOffset_            
+000066f0  _coreEnableVfp_                     
+00006788  _coreGetAuxiliaryDataFault_         
+0000679c  _coreGetAuxiliaryInstructionFault_  
+00006760  _coreGetDataFaultAddress_           
+00006738  _coreGetDataFault_                  
+00006774  _coreGetInstructionFaultAddress_    
+0000674c  _coreGetInstructionFault_           
+00006578  _coreInitRegisters_                 
+00006684  _coreInitStackPointer_              
+00009f20  _ctypes_                            
+0000690c  _dCacheInvalidate_                  
+08002038  _device                             
+000067b0  _disable_IRQ_interrupt_             
+000067b8  _enable_IRQ_interrupt_              
+000067c0  _enable_interrupt_                  
+000067c8  _esmCcmErrorsClear_                 
+08001f48  _ftable                             
+000066d0  _getCPSRValue_                      
+000066d8  _gotoCPUIdle_                       
+00006920  _iCacheInvalidate_                  
+08002128  _lock                               
+00006850  _memInit_                           
+00006c50  _mpuAreRegionsSeparate_             
+00006c34  _mpuDisableBackgroundRegion_        
+00006c0c  _mpuDisable_                        
+00006c24  _mpuEnableBackgroundRegion_         
+00006bf4  _mpuEnable_                         
+00006c44  _mpuGetNumberOfRegions_             
+00006c74  _mpuGetRegionBaseAddress_           
+00006c94  _mpuGetRegionPermission_            
+00006c88  _mpuGetRegionType_                  
+00006c64  _mpuGetRegion_                      
+0000693c  _mpuInit_                           
+00006c6c  _mpuSetRegionBaseAddress_           
+00006ca0  _mpuSetRegionSizeRegister_          
+00006c7c  _mpuSetRegionTypeAndPermission_     
+00006c5c  _mpuSetRegion_                      
+00009cf8  _nop                                
+080020b0  _stream                             
 08001500  _sys_memory                         
 UNDEFED   _system_post_cinit                  
-08002128  _unlock                             
-0000942c  abort                               
+0800212c  _unlock                             
+00009cf0  abort                               
 00001838  adc1GetConfigValue                  
 00001414  adcCalibration                      
 000017d8  adcDisableNotification              
@@ -411,78 +416,88 @@ UNDEFED   _system_post_cinit
 000013e4  adcIsConversionComplete             
 000013b4  adcIsFifoFull                       
 000015ec  adcMidPointCalibration              
-00008128  adcNotification                     
+0000882c  adcNotification                     
 000011c4  adcResetFiFo                        
 00001800  adcSetEVTPin                        
 00001118  adcStartConversion                  
 0000119c  adcStopConversion                   
 08001f28  adc_data                            
-000089f8  atoi                                
-08001f42  avr_cnt                             
-08001f40  avr_sum                             
-08001f43  bias_cnt                            
+00009268  atoi                                
+08001f46  avr_cnt                             
+08001f44  avr_sum                             
+08001f47  bias_cnt                            
 ffffffff  binit                               
-000086a0  close                               
-000093c4  copysign                            
-000093c4  copysignl                           
-00004fe4  disp_set                            
-00008114  dmaGroupANotification               
-00008178  epcCAMFullNotification              
-0000817c  epcFIFOFullNotification             
-0800212c  errno                               
-0000531c  esmActivateNormalOperation          
-00005468  esmClearStatus                      
-000054cc  esmClearStatusBuffer                
-000054a8  esmClearStatusUpper                 
-000052c8  esmDisableError                     
-000052f0  esmDisableErrorUpper                
-00005370  esmDisableInterrupt                 
-00005398  esmDisableInterruptUpper            
-00005284  esmEnableError                      
-000052ac  esmEnableErrorUpper                 
-0000532c  esmEnableInterrupt                  
-00005354  esmEnableInterruptUpper             
-000055fc  esmEnterSelfTest                    
-00005268  esmError                            
-000056d4  esmGetConfigValue                   
-00005508  esmGetStatus                        
-000055d4  esmGetStatusBuffer                  
-0000558c  esmGetStatusUpper                   
-000080dc  esmGroup1Notification               
-000080f0  esmGroup2Notification               
-00008104  esmGroup3Notification               
-00007288  esmHighInterrupt                    
-0000510c  esmInit                             
-00005684  esmSelfTestStatus                   
-000054e8  esmSetCounterPreloadValue           
-000053b4  esmSetInterruptLevel                
-00005428  esmSetInterruptLevelUpper           
-0000530c  esmTriggerErrorPinReset             
-00008afc  exit                                
-00009030  finddevice                          
+00008f10  close                               
+00009c88  copysign                            
+00009c88  copysignl                           
+0000368c  disp_set                            
+00008804  dmaGroupANotification               
+00005e94  dwdClearFlag                        
+00005d98  dwdCounterEnable                    
+00005dfc  dwdGenerateSysReset                 
+00005e5c  dwdGetStatus                        
+00005eb0  dwdGetViolationStatus               
+00005d08  dwdInit                             
+00005dd4  dwdReset                            
+00005db4  dwdSetPreload                       
+00005d80  dwwdGetCurrentDownCounter           
+00005d34  dwwdInit                            
+0000887c  epcCAMFullNotification              
+00008880  epcFIFOFullNotification             
+08002130  errno                               
+000054dc  esmActivateNormalOperation          
+00005628  esmClearStatus                      
+0000568c  esmClearStatusBuffer                
+00005668  esmClearStatusUpper                 
+00005488  esmDisableError                     
+000054b0  esmDisableErrorUpper                
+00005530  esmDisableInterrupt                 
+00005558  esmDisableInterruptUpper            
+00005444  esmEnableError                      
+0000546c  esmEnableErrorUpper                 
+000054ec  esmEnableInterrupt                  
+00005514  esmEnableInterruptUpper             
+000057bc  esmEnterSelfTest                    
+00005428  esmError                            
+00005894  esmGetConfigValue                   
+000056c8  esmGetStatus                        
+00005794  esmGetStatusBuffer                  
+0000574c  esmGetStatusUpper                   
+000087cc  esmGroup1Notification               
+000087e0  esmGroup2Notification               
+000087f4  esmGroup3Notification               
+00007ae4  esmHighInterrupt                    
+000052cc  esmInit                             
+00005844  esmSelfTestStatus                   
+000056a8  esmSetCounterPreloadValue           
+00005574  esmSetInterruptLevel                
+000055e8  esmSetInterruptLevelUpper           
+000054cc  esmTriggerErrorPinReset             
+0000936c  exit                                
+000098a0  finddevice                          
 08001f38  flag                                
-00007964  floor                               
-00007964  floorl                              
-00007cd8  fputc                               
-00006f64  fputs                               
-00007400  free                                
-000088e8  frexp                               
-000088e8  frexpl                              
-000082e8  fseek                               
-000031bc  getResetSource                      
-00004c84  get_data                            
-00008cd0  getdevice                           
-00005af8  gioDisableNotification              
-00005a90  gioEnableNotification               
-000059f8  gioGetBit                           
-00005b60  gioGetConfigValue                   
-00005a20  gioGetPort                          
-00005898  gioInit                             
-0000813c  gioNotification                     
-00005988  gioSetBit                           
-00005968  gioSetDirection                     
-000059d8  gioSetPort                          
-00005a38  gioToggleBit                        
+000081c0  floor                               
+000081c0  floorl                              
+00008534  fputc                               
+000077c0  fputs                               
+00007c5c  free                                
+00009158  frexp                               
+00009158  frexpl                              
+00008b58  fseek                               
+00003b34  getResetSource                      
+000031f8  get_data                            
+00009540  getdevice                           
+00006354  gioDisableNotification              
+000062ec  gioEnableNotification               
+00006254  gioGetBit                           
+000063bc  gioGetConfigValue                   
+0000627c  gioGetPort                          
+000060f4  gioInit                             
+00008840  gioNotification                     
+000061e4  gioSetBit                           
+000061c4  gioSetDirection                     
+00006234  gioSetPort                          
+00006294  gioToggleBit                        
 000021b4  i2c2GetConfigValue                  
 00001f20  i2cClearSCD                         
 00002078  i2cDisableLoopback                  
@@ -495,7 +510,7 @@ ffffffff  binit
 00001eb8  i2cIsRxReady                        
 00001ed4  i2cIsStopDetected                   
 00001d40  i2cIsTxReady                        
-00008150  i2cNotification                     
+00008854  i2cNotification                     
 00001f80  i2cReceive                          
 00001f3c  i2cReceiveByte                      
 00001ef0  i2cRxError                          
@@ -509,77 +524,91 @@ ffffffff  binit
 00001bc0  i2cSetSlaveAdd                      
 00001ce0  i2cSetStart                         
 00001d00  i2cSetStop                          
-00007aa0  ldexp                               
-00007aa0  ldexpl                              
-00004a04  lidar                               
-00004d84  lidar_bias                          
-00004b24  lidar_enable                        
-00004e4c  lidar_without_bias                  
-00009200  lseek                               
-00008a7c  ltoa                                
-00004954  main                                
-00007dd8  malloc                              
-00002fec  mapClocks                           
-000092b8  memccpy                             
-000092e4  memchr                              
-00007108  memcpy                              
-0000819c  memset                              
-00008ed8  minit                               
+000082fc  ldexp                               
+000082fc  ldexpl                              
+00002f60  lidar                               
+00003350  lidar_bias                          
+00003090  lidar_enable                        
+00003418  lidar_without_bias                  
+08001f3c  limit_air                           
+00009ac4  lseek                               
+000092ec  ltoa                                
+00002e50  main                                
+00008634  malloc                              
+00003964  mapClocks                           
+00009b7c  memccpy                             
+00009ba8  memchr                              
+00007964  memcpy                              
+00008a0c  memset                              
+00009748  minit                               
 0000248c  muxInit                             
 08001f30  parmbuf                             
-00002f38  periphInit                          
-00009440  phantomInterrupt                    
-00004f00  pressure                            
-000084d4  printf                              
-00007cd8  putc                                
-08001f3c  receives                            
-000091b8  remove                              
+000038b0  periphInit                          
+00009d04  phantomInterrupt                    
+000034f0  pressure                            
+00008d44  printf                              
+00008534  putc                                
+08001f40  receives                            
+00009a7c  remove                              
 00000000  resetEntry                          
-00007aa0  scalbn                              
-00007aa0  scalbnl                             
-000047a0  sci1GetConfigValue                  
-00004614  sciDisableLoopback                  
-000046c8  sciDisableNotification              
-000045e0  sciEnableLoopback                   
-00004630  sciEnableNotification               
-00004760  sciEnterResetState                  
-00004780  sciExitResetState                   
-000040e4  sciInit                             
-00004458  sciIsIdleDetected                   
-0000443c  sciIsRxReady                        
-0000428c  sciIsTxReady                        
-00008164  sciNotification                     
-000044d0  sciReceive                          
-000044a4  sciReceiveByte                      
-00004474  sciRxError                          
-000042d8  sciSend                             
-000042a8  sciSendByte                         
-000041f0  sciSetBaudrate                      
-000041d0  sciSetFunctional                    
-00004f84  sci_display                         
-00002ef8  setupFlash                          
-00002e50  setupPLL                            
-000076c8  setvbuf                             
-00008e74  sprintf                             
-00009310  strchr                              
-00009338  strcmp                              
-000093e0  strcpy                              
-000093a4  strlen                              
-00009170  strncpy                             
-000032e4  systemGetConfigValue                
-00003118  systemInit                          
-0000318c  systemPowerDown                     
-00002eb0  trimLPO                             
-000091b8  unlink                              
-00003880  vimChannelMap                       
-00003aec  vimDisableInterrupt                 
-0000644c  vimECCErrorHandler                  
-00003924  vimEnableInterrupt                  
-00003b98  vimGetConfigValue                   
-000037ac  vimInit                             
-0000505c  wait                                
-00009360  wcslen                              
-00009244  write                               
+000098f4  rtiCompare0Interrupt                
+00005f68  rtiDisableNotification              
+00005f3c  rtiEnableNotification               
+00005f88  rtiGetConfigValue                   
+00005c70  rtiGetCurrentTick                   
+00005c44  rtiGetPeriod                        
+00005a58  rtiInit                             
+00003724  rtiNotification                     
+00005bac  rtiResetCounter                     
+00005c18  rtiSetPeriod                        
+00005b4c  rtiStartCounter                     
+00005b7c  rtiStopCounter                      
+000082fc  scalbn                              
+000082fc  scalbnl                             
+00005118  sci1GetConfigValue                  
+00004f8c  sciDisableLoopback                  
+00005040  sciDisableNotification              
+00004f58  sciEnableLoopback                   
+00004fa8  sciEnableNotification               
+000050d8  sciEnterResetState                  
+000050f8  sciExitResetState                   
+00004a5c  sciInit                             
+00004dd0  sciIsIdleDetected                   
+00004db4  sciIsRxReady                        
+00004c04  sciIsTxReady                        
+00008868  sciNotification                     
+00004e48  sciReceive                          
+00004e1c  sciReceiveByte                      
+00004dec  sciRxError                          
+00004c50  sciSend                             
+00004c20  sciSendByte                         
+00004b68  sciSetBaudrate                      
+00004b48  sciSetFunctional                    
+0000362c  sci_display                         
+00003870  setupFlash                          
+000037c8  setupPLL                            
+00007f24  setvbuf                             
+000096e4  sprintf                             
+00009bd4  strchr                              
+00009bfc  strcmp                              
+00009ca4  strcpy                              
+00009c68  strlen                              
+00009a34  strncpy                             
+00003c5c  systemGetConfigValue                
+00003a90  systemInit                          
+00003b04  systemPowerDown                     
+00002f3c  trigger                             
+00003828  trimLPO                             
+00009a7c  unlink                              
+000041f8  vimChannelMap                       
+00004464  vimDisableInterrupt                 
+00006ca8  vimECCErrorHandler                  
+0000429c  vimEnableInterrupt                  
+00004510  vimGetConfigValue                   
+00004124  vimInit                             
+000036e0  wait                                
+00009c24  wcslen                              
+00009b08  write                               
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -630,249 +659,274 @@ address   name
 000023b4  i2cIsMasterReady                    
 000023f4  i2cIsBusBusy                        
 0000248c  muxInit                             
-00002e50  setupPLL                            
-00002eb0  trimLPO                             
-00002ef8  setupFlash                          
-00002f38  periphInit                          
-00002fec  mapClocks                           
-00003118  systemInit                          
-0000318c  systemPowerDown                     
-000031bc  getResetSource                      
-000032e4  systemGetConfigValue                
-000037ac  vimInit                             
-00003880  vimChannelMap                       
-00003924  vimEnableInterrupt                  
-00003aec  vimDisableInterrupt                 
-00003b98  vimGetConfigValue                   
-000040e4  sciInit                             
-000041d0  sciSetFunctional                    
-000041f0  sciSetBaudrate                      
-0000428c  sciIsTxReady                        
-000042a8  sciSendByte                         
-000042d8  sciSend                             
-0000443c  sciIsRxReady                        
-00004458  sciIsIdleDetected                   
-00004474  sciRxError                          
-000044a4  sciReceiveByte                      
-000044d0  sciReceive                          
-000045e0  sciEnableLoopback                   
-00004614  sciDisableLoopback                  
-00004630  sciEnableNotification               
-000046c8  sciDisableNotification              
-00004760  sciEnterResetState                  
-00004780  sciExitResetState                   
-000047a0  sci1GetConfigValue                  
-00004954  main                                
-00004a04  lidar                               
-00004b24  lidar_enable                        
-00004c84  get_data                            
-00004d84  lidar_bias                          
-00004e4c  lidar_without_bias                  
-00004f00  pressure                            
-00004f84  sci_display                         
-00004fe4  disp_set                            
-0000505c  wait                                
-0000510c  esmInit                             
-00005268  esmError                            
-00005284  esmEnableError                      
-000052ac  esmEnableErrorUpper                 
-000052c8  esmDisableError                     
-000052f0  esmDisableErrorUpper                
-0000530c  esmTriggerErrorPinReset             
-0000531c  esmActivateNormalOperation          
-0000532c  esmEnableInterrupt                  
-00005354  esmEnableInterruptUpper             
-00005370  esmDisableInterrupt                 
-00005398  esmDisableInterruptUpper            
-000053b4  esmSetInterruptLevel                
-00005428  esmSetInterruptLevelUpper           
-00005468  esmClearStatus                      
-000054a8  esmClearStatusUpper                 
-000054cc  esmClearStatusBuffer                
-000054e8  esmSetCounterPreloadValue           
-00005508  esmGetStatus                        
-0000558c  esmGetStatusUpper                   
-000055d4  esmGetStatusBuffer                  
-000055fc  esmEnterSelfTest                    
-00005684  esmSelfTestStatus                   
-000056d4  esmGetConfigValue                   
-00005898  gioInit                             
-00005968  gioSetDirection                     
-00005988  gioSetBit                           
-000059d8  gioSetPort                          
-000059f8  gioGetBit                           
-00005a20  gioGetPort                          
-00005a38  gioToggleBit                        
-00005a90  gioEnableNotification               
-00005af8  gioDisableNotification              
-00005b60  gioGetConfigValue                   
-00005d1c  _coreInitRegisters_                 
-00005e28  _coreInitStackPointer_              
-00005e74  _getCPSRValue_                      
-00005e7c  _gotoCPUIdle_                       
-00005e94  _coreEnableVfp_                     
-00005eac  _coreEnableEventBusExport_          
-00005ebc  _coreDisableEventBusExport_         
-00005ecc  _coreEnableIrqVicOffset_            
-00005edc  _coreGetDataFault_                  
-00005ee4  _coreClearDataFault_                
-00005ef0  _coreGetInstructionFault_           
-00005ef8  _coreClearInstructionFault_         
-00005f04  _coreGetDataFaultAddress_           
-00005f0c  _coreClearDataFaultAddress_         
-00005f18  _coreGetInstructionFaultAddress_    
-00005f20  _coreClearInstructionFaultAddress_  
-00005f2c  _coreGetAuxiliaryDataFault_         
-00005f34  _coreClearAuxiliaryDataFault_       
-00005f40  _coreGetAuxiliaryInstructionFault_  
-00005f48  _coreClearAuxiliaryInstructionFault_
-00005f54  _disable_IRQ_interrupt_             
-00005f5c  _enable_IRQ_interrupt_              
-00005f64  _enable_interrupt_                  
-00005f6c  _esmCcmErrorsClear_                 
-00005ff4  _memInit_                           
-00006028  _checkMemInitOn_                    
-00006048  _cacheEnable_                       
-0000608c  _cacheDisable_                      
-000060b0  _dCacheInvalidate_                  
-000060c4  _iCacheInvalidate_                  
-000060d8  __TI_PINIT_Base                     
-000060dc  __TI_PINIT_Limit                    
-000060e0  _mpuInit_                           
-00006398  _mpuEnable_                         
-000063b0  _mpuDisable_                        
-000063c8  _mpuEnableBackgroundRegion_         
-000063d8  _mpuDisableBackgroundRegion_        
-000063e8  _mpuGetNumberOfRegions_             
-000063f4  _mpuAreRegionsSeparate_             
-00006400  _mpuSetRegion_                      
-00006408  _mpuGetRegion_                      
-00006410  _mpuSetRegionBaseAddress_           
-00006418  _mpuGetRegionBaseAddress_           
-00006420  _mpuSetRegionTypeAndPermission_     
-0000642c  _mpuGetRegionType_                  
-00006438  _mpuGetRegionPermission_            
-00006444  _mpuSetRegionSizeRegister_          
-0000644c  vimECCErrorHandler                  
-00006a64  __aeabi_uldivmod                    
-00006f64  fputs                               
-00007108  __aeabi_memcpy                      
-00007108  __aeabi_memcpy4                     
-00007108  __aeabi_memcpy8                     
-00007108  memcpy                              
-00007288  esmHighInterrupt                    
-00007400  free                                
-000076c8  setvbuf                             
-00007964  floor                               
-00007964  floorl                              
-00007aa0  ldexp                               
-00007aa0  ldexpl                              
-00007aa0  scalbn                              
-00007aa0  scalbnl                             
-00007cd8  fputc                               
-00007cd8  putc                                
-00007dd8  malloc                              
-00007f70  __TI_closefile                      
-00008028  _c_int00                            
-000080dc  esmGroup1Notification               
-000080f0  esmGroup2Notification               
-00008104  esmGroup3Notification               
-00008114  dmaGroupANotification               
-00008128  adcNotification                     
-0000813c  gioNotification                     
-00008150  i2cNotification                     
-00008164  sciNotification                     
-00008178  epcCAMFullNotification              
-0000817c  epcFIFOFullNotification             
-0000818c  __aeabi_memclr                      
-0000818c  __aeabi_memclr4                     
-0000818c  __aeabi_memclr8                     
-00008190  __aeabi_memset                      
-00008190  __aeabi_memset4                     
-00008190  __aeabi_memset8                     
-0000819c  memset                              
-0000823c  HOSTlseek                           
-000082e8  fseek                               
-00008390  HOSTrename                          
-00008434  __TI_wrt_ok                         
-000084d4  printf                              
-00008570  HOSTopen                            
-000086a0  close                               
-00008738  HOSTread                            
-000087c8  HOSTwrite                           
-00008858  __TI_decompress_lzss                
-000088e8  frexp                               
-000088e8  frexpl                              
-00008974  __TI_doflush                        
-000089f8  atoi                                
-00008a7c  ltoa                                
-00008afc  exit                                
-00008b78  HOSTclose                           
-00008c60  HOSTunlink                          
-00008cd0  getdevice                           
-00008da8  __TI_auto_init_nobinit_nopinit      
-00008e74  sprintf                             
-00008ed8  minit                               
-00008f34  __TI_cleanup                        
-00008f88  __TI_readmsg                        
-00008fdc  __TI_writemsg                       
-00009024  C$$IO$$                             
-00009030  finddevice                          
-00009084  __aeabi_idiv                        
-00009084  __aeabi_idivmod                     
-000090d8  __aeabi_uidiv                       
-000090d8  __aeabi_uidivmod                    
-00009170  strncpy                             
-000091b8  remove                              
-000091b8  unlink                              
-00009200  lseek                               
-00009244  write                               
-000092b8  memccpy                             
-000092e4  memchr                              
-00009310  strchr                              
-00009338  strcmp                              
-00009360  wcslen                              
-00009384  __TI_zero_init_nomemset             
-000093a4  strlen                              
-000093c4  copysign                            
-000093c4  copysignl                           
-000093e0  strcpy                              
-0000940c  __TI_decompress_none                
-00009420  __aeabi_errno_addr                  
-0000942c  C$$EXIT                             
-0000942c  abort                               
-00009434  _nop                                
-00009440  phantomInterrupt                    
-00009444  __aeabi_idiv0                       
-00009444  __aeabi_ldiv0                       
-00009660  _ctypes_                            
-00009810  __TI_Handler_Table_Base             
-0000981c  __TI_Handler_Table_Limit            
-00009828  __TI_CINIT_Base                     
-00009838  __TI_CINIT_Limit                    
+00002e50  main                                
+00002f3c  trigger                             
+00002f60  lidar                               
+00003090  lidar_enable                        
+000031f8  get_data                            
+00003350  lidar_bias                          
+00003418  lidar_without_bias                  
+000034f0  pressure                            
+0000362c  sci_display                         
+0000368c  disp_set                            
+000036e0  wait                                
+00003724  rtiNotification                     
+000037c8  setupPLL                            
+00003828  trimLPO                             
+00003870  setupFlash                          
+000038b0  periphInit                          
+00003964  mapClocks                           
+00003a90  systemInit                          
+00003b04  systemPowerDown                     
+00003b34  getResetSource                      
+00003c5c  systemGetConfigValue                
+00004124  vimInit                             
+000041f8  vimChannelMap                       
+0000429c  vimEnableInterrupt                  
+00004464  vimDisableInterrupt                 
+00004510  vimGetConfigValue                   
+00004a5c  sciInit                             
+00004b48  sciSetFunctional                    
+00004b68  sciSetBaudrate                      
+00004c04  sciIsTxReady                        
+00004c20  sciSendByte                         
+00004c50  sciSend                             
+00004db4  sciIsRxReady                        
+00004dd0  sciIsIdleDetected                   
+00004dec  sciRxError                          
+00004e1c  sciReceiveByte                      
+00004e48  sciReceive                          
+00004f58  sciEnableLoopback                   
+00004f8c  sciDisableLoopback                  
+00004fa8  sciEnableNotification               
+00005040  sciDisableNotification              
+000050d8  sciEnterResetState                  
+000050f8  sciExitResetState                   
+00005118  sci1GetConfigValue                  
+000052cc  esmInit                             
+00005428  esmError                            
+00005444  esmEnableError                      
+0000546c  esmEnableErrorUpper                 
+00005488  esmDisableError                     
+000054b0  esmDisableErrorUpper                
+000054cc  esmTriggerErrorPinReset             
+000054dc  esmActivateNormalOperation          
+000054ec  esmEnableInterrupt                  
+00005514  esmEnableInterruptUpper             
+00005530  esmDisableInterrupt                 
+00005558  esmDisableInterruptUpper            
+00005574  esmSetInterruptLevel                
+000055e8  esmSetInterruptLevelUpper           
+00005628  esmClearStatus                      
+00005668  esmClearStatusUpper                 
+0000568c  esmClearStatusBuffer                
+000056a8  esmSetCounterPreloadValue           
+000056c8  esmGetStatus                        
+0000574c  esmGetStatusUpper                   
+00005794  esmGetStatusBuffer                  
+000057bc  esmEnterSelfTest                    
+00005844  esmSelfTestStatus                   
+00005894  esmGetConfigValue                   
+00005a58  rtiInit                             
+00005b4c  rtiStartCounter                     
+00005b7c  rtiStopCounter                      
+00005bac  rtiResetCounter                     
+00005c18  rtiSetPeriod                        
+00005c44  rtiGetPeriod                        
+00005c70  rtiGetCurrentTick                   
+00005d08  dwdInit                             
+00005d34  dwwdInit                            
+00005d80  dwwdGetCurrentDownCounter           
+00005d98  dwdCounterEnable                    
+00005db4  dwdSetPreload                       
+00005dd4  dwdReset                            
+00005dfc  dwdGenerateSysReset                 
+00005e24  IsdwdKeySequenceCorrect             
+00005e5c  dwdGetStatus                        
+00005e94  dwdClearFlag                        
+00005eb0  dwdGetViolationStatus               
+00005f3c  rtiEnableNotification               
+00005f68  rtiDisableNotification              
+00005f88  rtiGetConfigValue                   
+000060f4  gioInit                             
+000061c4  gioSetDirection                     
+000061e4  gioSetBit                           
+00006234  gioSetPort                          
+00006254  gioGetBit                           
+0000627c  gioGetPort                          
+00006294  gioToggleBit                        
+000062ec  gioEnableNotification               
+00006354  gioDisableNotification              
+000063bc  gioGetConfigValue                   
+00006578  _coreInitRegisters_                 
+00006684  _coreInitStackPointer_              
+000066d0  _getCPSRValue_                      
+000066d8  _gotoCPUIdle_                       
+000066f0  _coreEnableVfp_                     
+00006708  _coreEnableEventBusExport_          
+00006718  _coreDisableEventBusExport_         
+00006728  _coreEnableIrqVicOffset_            
+00006738  _coreGetDataFault_                  
+00006740  _coreClearDataFault_                
+0000674c  _coreGetInstructionFault_           
+00006754  _coreClearInstructionFault_         
+00006760  _coreGetDataFaultAddress_           
+00006768  _coreClearDataFaultAddress_         
+00006774  _coreGetInstructionFaultAddress_    
+0000677c  _coreClearInstructionFaultAddress_  
+00006788  _coreGetAuxiliaryDataFault_         
+00006790  _coreClearAuxiliaryDataFault_       
+0000679c  _coreGetAuxiliaryInstructionFault_  
+000067a4  _coreClearAuxiliaryInstructionFault_
+000067b0  _disable_IRQ_interrupt_             
+000067b8  _enable_IRQ_interrupt_              
+000067c0  _enable_interrupt_                  
+000067c8  _esmCcmErrorsClear_                 
+00006850  _memInit_                           
+00006884  _checkMemInitOn_                    
+000068a4  _cacheEnable_                       
+000068e8  _cacheDisable_                      
+0000690c  _dCacheInvalidate_                  
+00006920  _iCacheInvalidate_                  
+00006934  __TI_PINIT_Base                     
+00006938  __TI_PINIT_Limit                    
+0000693c  _mpuInit_                           
+00006bf4  _mpuEnable_                         
+00006c0c  _mpuDisable_                        
+00006c24  _mpuEnableBackgroundRegion_         
+00006c34  _mpuDisableBackgroundRegion_        
+00006c44  _mpuGetNumberOfRegions_             
+00006c50  _mpuAreRegionsSeparate_             
+00006c5c  _mpuSetRegion_                      
+00006c64  _mpuGetRegion_                      
+00006c6c  _mpuSetRegionBaseAddress_           
+00006c74  _mpuGetRegionBaseAddress_           
+00006c7c  _mpuSetRegionTypeAndPermission_     
+00006c88  _mpuGetRegionType_                  
+00006c94  _mpuGetRegionPermission_            
+00006ca0  _mpuSetRegionSizeRegister_          
+00006ca8  vimECCErrorHandler                  
+000072c0  __aeabi_uldivmod                    
+000077c0  fputs                               
+00007964  __aeabi_memcpy                      
+00007964  __aeabi_memcpy4                     
+00007964  __aeabi_memcpy8                     
+00007964  memcpy                              
+00007ae4  esmHighInterrupt                    
+00007c5c  free                                
+00007f24  setvbuf                             
+000081c0  floor                               
+000081c0  floorl                              
+000082fc  ldexp                               
+000082fc  ldexpl                              
+000082fc  scalbn                              
+000082fc  scalbnl                             
+00008534  fputc                               
+00008534  putc                                
+00008634  malloc                              
+000087cc  esmGroup1Notification               
+000087e0  esmGroup2Notification               
+000087f4  esmGroup3Notification               
+00008804  dmaGroupANotification               
+0000882c  adcNotification                     
+00008840  gioNotification                     
+00008854  i2cNotification                     
+00008868  sciNotification                     
+0000887c  epcCAMFullNotification              
+00008880  epcFIFOFullNotification             
+00008890  __TI_closefile                      
+00008948  _c_int00                            
+000089fc  __aeabi_memclr                      
+000089fc  __aeabi_memclr4                     
+000089fc  __aeabi_memclr8                     
+00008a00  __aeabi_memset                      
+00008a00  __aeabi_memset4                     
+00008a00  __aeabi_memset8                     
+00008a0c  memset                              
+00008aac  HOSTlseek                           
+00008b58  fseek                               
+00008c00  HOSTrename                          
+00008ca4  __TI_wrt_ok                         
+00008d44  printf                              
+00008de0  HOSTopen                            
+00008f10  close                               
+00008fa8  HOSTread                            
+00009038  HOSTwrite                           
+000090c8  __TI_decompress_lzss                
+00009158  frexp                               
+00009158  frexpl                              
+000091e4  __TI_doflush                        
+00009268  atoi                                
+000092ec  ltoa                                
+0000936c  exit                                
+000093e8  HOSTclose                           
+000094d0  HOSTunlink                          
+00009540  getdevice                           
+00009618  __TI_auto_init_nobinit_nopinit      
+000096e4  sprintf                             
+00009748  minit                               
+000097a4  __TI_cleanup                        
+000097f8  __TI_readmsg                        
+0000984c  __TI_writemsg                       
+00009894  C$$IO$$                             
+000098a0  finddevice                          
+000098f4  rtiCompare0Interrupt                
+00009948  __aeabi_idiv                        
+00009948  __aeabi_idivmod                     
+0000999c  __aeabi_uidiv                       
+0000999c  __aeabi_uidivmod                    
+00009a34  strncpy                             
+00009a7c  remove                              
+00009a7c  unlink                              
+00009ac4  lseek                               
+00009b08  write                               
+00009b7c  memccpy                             
+00009ba8  memchr                              
+00009bd4  strchr                              
+00009bfc  strcmp                              
+00009c24  wcslen                              
+00009c48  __TI_zero_init_nomemset             
+00009c68  strlen                              
+00009c88  copysign                            
+00009c88  copysignl                           
+00009ca4  strcpy                              
+00009cd0  __TI_decompress_none                
+00009ce4  __aeabi_errno_addr                  
+00009cf0  C$$EXIT                             
+00009cf0  abort                               
+00009cf8  _nop                                
+00009d04  phantomInterrupt                    
+00009d08  __aeabi_idiv0                       
+00009d08  __aeabi_ldiv0                       
+00009f20  _ctypes_                            
+0000a0d0  __TI_Handler_Table_Base             
+0000a0dc  __TI_Handler_Table_Limit            
+0000a0e8  __TI_CINIT_Base                     
+0000a0f8  __TI_CINIT_Limit                    
 08001500  _sys_memory                         
 08001d00  __CIOBUF_                           
 08001e20  __TI_tmpnams                        
 08001f28  adc_data                            
 08001f30  parmbuf                             
 08001f38  flag                                
-08001f3c  receives                            
-08001f40  avr_sum                             
-08001f42  avr_cnt                             
-08001f43  bias_cnt                            
-08001f44  _ftable                             
-08002034  _device                             
-080020ac  _stream                             
-080020fc  __TI_ft_end                         
-08002100  __aeabi_stdin                       
-08002104  __aeabi_stdout                      
-08002108  __aeabi_stderr                      
-0800210c  __TI_cleanup_ptr                    
-08002110  __TI_dtors_ptr                      
-08002114  __TI_enable_exit_profile_output     
-08002124  _lock                               
-08002128  _unlock                             
-0800212c  errno                               
+08001f3c  limit_air                           
+08001f40  receives                            
+08001f44  avr_sum                             
+08001f46  avr_cnt                             
+08001f47  bias_cnt                            
+08001f48  _ftable                             
+08002038  _device                             
+080020b0  _stream                             
+08002100  __TI_ft_end                         
+08002104  __aeabi_stdin                       
+08002108  __aeabi_stdout                      
+0800210c  __aeabi_stderr                      
+08002110  __TI_cleanup_ptr                    
+08002114  __TI_dtors_ptr                      
+08002118  __TI_enable_exit_profile_output     
+08002128  _lock                               
+0800212c  _unlock                             
+08002130  errno                               
 ffffffff  __TI_pprof_out_hndl                 
 ffffffff  __TI_prof_data_size                 
 ffffffff  __TI_prof_data_start                
@@ -883,4 +937,4 @@ UNDEFED   SHT$$INIT_ARRAY$$Base
 UNDEFED   SHT$$INIT_ARRAY$$Limit              
 UNDEFED   _system_post_cinit                  
 
-[296 symbols]
+[321 symbols]

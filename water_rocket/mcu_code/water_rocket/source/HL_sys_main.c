@@ -52,7 +52,16 @@
 /* USER CODE BEGIN (1) */
 /* USER CODE END */
 
+/** @fn void main(void)
+*   @brief Application main function
+*   @note This function is empty by default.
+*
+*   This function is called after startup.
+*   The user can use this function to implement the application.
+*/
+
 /* USER CODE BEGIN (2) */
+#include "HL_rti.h"
 #include "HL_gio.h"
 #include "HL_sci.h"
 #include "HL_adc.h"
@@ -61,15 +70,20 @@
 #include <stdio.h>
 #include <string.h>
 
+/////////////////////////////////////////// Trigger 모터 //////////////////////////////////////////////
+#define MOTOR   2
+
 /////////////////////////////////////////// ADC 관련 상수 //////////////////////////////////////////////
 #define RELAY_OFF   1
 #define RELAY_ON    0
 
-#define WATER   1
-#define AIR     0
+// 릴레이 in1 워터
+#define WATER   0
+// 릴레이 in2 에어
+#define AIR     1
 
 #define LIMIT_WATER   780
-#define LIMIT_AIR     950
+int limit_air;
 
 adcData_t adc_data;
 
@@ -109,52 +123,65 @@ void get_data(void);
 void lidar_enable(void);
 
 void wait(uint32);
-void pressure(uint32 water_pressure, uint32 air_pressure);
-void lidar();
+void pressure(uint32 water_pressure, int air_pressure, uint32 *, uint16 distance);
+void lidar(void);
+void trigger(void);
 
 /* USER CODE END */
 
 int main(void)
 {
 /* USER CODE BEGIN (3) */
+
     uint32 value = 0;
 
-
+    rtiInit();
     gioInit();
+    //gioB0을 이벤트 트리거로 설정해서 direction 설정을 해야함.
     gioSetDirection(gioPORTB,1);
 
-    //gioB0을 이벤트 트리거로 설정해서 direction 설정을 해야함.
+    gioSetBit(gioPORTA, WATER, RELAY_OFF);
+    gioSetBit(gioPORTA, AIR, RELAY_OFF);
+
+    rtiEnableNotification(rtiREG1, rtiNOTIFICATION_COMPARE0);
+    _enable_IRQ_interrupt_();
+
     i2cInit();
-
     sciInit();
-
+    lidar_enable();
     adcInit();
-    adcStartConversion(adcREG1, adcGROUP1);
-
-    gioSetBit(gioPORTA, WATER, RELAY_ON);
 
     for(;;)
     {
+//       gioSetBit(gioPORTA,6,0);
+        // 버튼 누를때까지 거리측정
+        while((gioGetBit(gioPORTA, 6)))
+        {
+            // 거리 값 변수 avr_sum
+            printf("lidar\n");
+            lidar();
+        }
 
-        gioSetBit(gioPORTB, 0, 1);
+        adcStartConversion(adcREG1, adcGROUP1);
+        // 물은 항상 일정량, 공기는 거리에 따라 바뀌는 변수, value는 콘솔출력용, avr_sum은 거리값
+        pressure(LIMIT_WATER, limit_air, &value, avr_sum);
 
-        while((adcIsConversionComplete(adcREG1, adcGROUP1))==0)
-            ;
+        // 발사
+        trigger();
 
-        adcGetData(adcREG1, adcGROUP1, &adc_data);
-
-        value = adc_data.value;
-
-        gioSetBit(gioPORTB, 0, 0);
+        // 발사 후 RTI 카운트 종료 종료
+        rtiStopCounter(rtiREG1, rtiCOUNTER_BLOCK0);
 
         //센서 값 10진수 TEST
 #if 1
-        printf("value = %d\n", value); // 기본 값은 601 ~ 614정도로 흔들림
+        printf("Distance value = %d\n", avr_sum); // Lidar 측정 값
+
+        printf("Shot pressure value = %d\n", limit_air); // 발사 할 압력 값
+
+        printf("ADC 측정 value = %d\n", value); // 발사 때 ADC가 측정한 값
 #endif
-        // 본 프로그램
-#if 1
-        pressure(LIMIT_WATER, LIMIT_AIR);
-#endif
+
+
         // 압력값 ADC 확인
 #if 0
         if(value > LIMIT_WATER)
@@ -174,6 +201,12 @@ int main(void)
 
 
 /* USER CODE BEGIN (4) */
+void trigger()
+{
+    rtiStartCounter(rtiREG1, rtiCOUNTER_BLOCK0);
+    gioSetBit(gioPORTA, MOTOR, RELAY_ON);
+}
+
 void lidar()
 {
     char buf[128] = {0};
@@ -181,8 +214,9 @@ void lidar()
     volatile int i;
 
     get_data();
-
+printf("get data\n");
     lidar_without_bias();
+    printf("bias data\n");
     bias_cnt++;
 
     if(bias_cnt == 10)
@@ -209,7 +243,6 @@ void lidar()
         }
 
 }
-
 
 void lidar_enable(void)
 {
@@ -341,25 +374,43 @@ void lidar_without_bias(void)
     i2cClearSCD(i2cREG2);
 
     wait(100000);
-
 }
 
 
-void pressure(uint32 water_limit, uint32 air_limit)
+void pressure(uint32 water_limit, int air_limit, uint32 *value, uint16 distance)
 {
-    if(adc_data.value > air_limit)
-    {
-        gioSetBit(gioPORTA, AIR, RELAY_OFF);
-        printf("AIR OFF\n");
-    }
+    air_limit = (int)(0.16422 * (double)distance + 782.783542);
 
-    else if(adc_data.value > water_limit)
+    gioSetBit(gioPORTA, WATER, RELAY_ON);
+
+    while(!(gioGetBit(gioPORTA, AIR))) // 컴프레셔 꺼질때까지 반복
     {
-        gioSetBit(gioPORTA, WATER, RELAY_OFF);
-        printf("WATER OFF\n");
-        //wait(111111);
-        printf("AIR ON\n");
-        gioSetBit(gioPORTA, AIR, RELAY_ON);
+        gioSetBit(gioPORTB, 0, 1);
+
+        while((adcIsConversionComplete(adcREG1, adcGROUP1)) == 0)
+            ;
+
+        adcGetData(adcREG1, adcGROUP1, &adc_data);
+
+        //main에서 콘솔로 출력
+        *value = adc_data.value;
+
+        gioSetBit(gioPORTB, 0, 0);
+
+        if(adc_data.value > air_limit)
+        {
+            gioSetBit(gioPORTA, AIR, RELAY_OFF);
+            printf("AIR OFF\n");
+        }
+
+        else if(adc_data.value > water_limit)
+        {
+            gioSetBit(gioPORTA, WATER, RELAY_OFF);
+            printf("WATER OFF\n");
+            //wait(111111);
+            printf("AIR ON\n");
+            gioSetBit(gioPORTA, AIR, RELAY_ON);
+        }
     }
 }
 
@@ -390,6 +441,11 @@ void wait(uint32 delay)
 
     for(i=0; i<delay; i++)
         ;
+}
+
+void rtiNotification(rtiBASE_t *rtiREG, uint32 notification)
+{
+    gioSetBit(gioPORTA, MOTOR, RELAY_OFF);
 }
 
 /* USER CODE END */
