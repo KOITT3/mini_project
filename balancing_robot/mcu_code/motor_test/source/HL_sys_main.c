@@ -128,8 +128,8 @@ int main(void)
         if(receive == 8)
             value1 = 0;
 
-        if(value1 <= 2500 && value1 > 0)
-            value1 = 2500;
+        if(value1 <= 2000 && value1 > 0)
+            value1 = 2000;
         if(value2 <= 4000 && value2 > 0)
             value2 = 4000;
 
