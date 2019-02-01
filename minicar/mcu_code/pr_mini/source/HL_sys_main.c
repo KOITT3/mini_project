@@ -57,6 +57,7 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 xTaskHandle motor_b;
 xTaskHandle motor_f;
@@ -93,6 +94,7 @@ void motor_stop(void);
 int throttle;
 int rudder;
 int lh_switch;
+bool warn=false;
 /* USER CODE END */
 
 int main(void)
